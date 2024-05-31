@@ -90,15 +90,18 @@ export const Entry = () => {
     });
 
     const handleFocus = useMemo((): IOneProps['focus'] => (...args) => {
-        window.oneFocus && window.oneFocus(...args);
+        const params = args.map((value) => typeof value === "function" ? null : value);
+        window.oneFocus && window.oneFocus(...params);
     }, []);
 
     const handleBlur = useMemo((): IOneProps['blur'] => (...args) => {
-        window.oneBlur && window.oneBlur(...args);
+        const params = args.map((value) => typeof value === "function" ? null : value);
+        window.oneBlur && window.oneBlur(...params);
     }, []);
 
     const handleChange = useMemo((): IOneProps['change'] => (...args) => {
-        window.oneChange && window.oneChange(...args);
+        const params = args.map((value) => typeof value === "function" ? null : value);
+        window.oneChange && window.oneChange(...params);
     }, []);
 
     if (!config) {
@@ -122,9 +125,9 @@ export const Entry = () => {
 declare global {
     interface Window {
         oneLauncher: typeof oneLauncher;
-        oneFocus?: IOneProps['focus'];
-        oneBlur?: IOneProps['blur'];
-        oneChange?: IOneProps['change'];
+        oneFocus?: (...args: unknown[]) => void;
+        oneBlur?: (...args: unknown[]) => void;
+        oneChange?: (...args: unknown[]) => void;
     }
 }
 

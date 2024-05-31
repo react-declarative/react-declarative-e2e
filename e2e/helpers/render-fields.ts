@@ -2,7 +2,7 @@ import IOneProps from "react-declarative/model/IOneProps";
 import { Page } from "@playwright/test";
 import stringify from "code-stringify";
 
-import { IField } from "../model/IField";
+import IField from "../model/IField";
 import TypedField from "../model/TypedField";
 
 import deepFlat from "../utils/deepFlat";
@@ -35,9 +35,9 @@ declare global {
 type Field = IField | TypedField;
 
 export const renderFields = async (page: Page, f: Field[], {
-    blur: oneBlur,
-    change: oneChange,
-    focus: oneFocus,
+    blur: oneBlur = (name, data) => console.log({ type: 'blur', name, data }),
+    change: oneChange = (data, initial) => console.log({ type: 'change', data, initial }),
+    focus: oneFocus = (name, data) => console.log({ type: 'focus', name, data }),
 }: Partial<ICallbacks> = {}) => {
     const fields = deepClone(f);
     deepFlat(fields).forEach((field) => {
