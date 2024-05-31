@@ -7,7 +7,7 @@
 ## Contribute
 
 > [!IMPORTANT]
-> Made especially for newbies as an advanced documentation for `react-declarative` to solve your problems. **⭐Star** and **💻Fork** It [on github](https://github.com/react-declarative/react-declarative) will be appreciated
+> Made especially for newbies as an advanced documentation for `react-declarative` to solve their problems. **⭐Star** and **💻Fork** It [on github](https://github.com/react-declarative/react-declarative) will be appreciated
 
 ## Usage
 
