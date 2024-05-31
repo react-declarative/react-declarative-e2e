@@ -1,4 +1,4 @@
-# react-declarative-e2e
+# ⚛️ react-declarative-e2e
 
 > Playwright end-to-end testbed for [react-declarative](https://github.com/react-declarative/react-declarative)
 
