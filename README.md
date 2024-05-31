@@ -1,6 +1,6 @@
 # react-declarative-e2e
 
-> Playwright end-to-end testing for [react-declarative](https://github.com/react-declarative/react-declarative)
+> Playwright end-to-end testbed for [react-declarative](https://github.com/react-declarative/react-declarative)
 
 ## Contribute
 
@@ -18,11 +18,11 @@ npm run build
 2. Run tests
 
 ```bash
-npm run test
+npm run test:ui
 ```
 
 or
 
 ```bash
-npm run test:ui
+npm run test
 ```
