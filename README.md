@@ -2,6 +2,8 @@
 
 > Playwright end-to-end testbed for [react-declarative](https://github.com/react-declarative/react-declarative)
 
+![screenshot](./docs/screenshot.png)
+
 ## Contribute
 
 > [!IMPORTANT]
