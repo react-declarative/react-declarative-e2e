@@ -52,7 +52,6 @@ const fieldMap = {
     'component-field': FieldType.Component,
     'slider-field': FieldType.Slider,
     'choose-field': FieldType.Choose,
-    'tree-field': FieldType.Tree,
     'dict-field': FieldType.Dict,
     'init-field': FieldType.Init,
     'phony-field': FieldType.Phony,
@@ -76,6 +75,7 @@ const fieldMap = {
 4. [CheckboxField](./e2e/spec/Checkbox.spec.ts)
 5. [ComboField](./e2e/spec/Combo.spec.ts)
 6. [ItemsField](./e2e/spec/Items.spec.ts)
+6. [TreeField](./e2e/spec/Tree.spec.ts)
 
 ## Code Sample
 
