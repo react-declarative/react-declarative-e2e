@@ -8,7 +8,7 @@
 
 ## Purpose
 
-This will help you customize `react-declarative` with our own UI Kit. Check this [document for guide](https://github.com/react-declarative/react-declarative/blob/master/docs/other/how-to-implement-uikit.md)
+This will help you tweak `react-declarative` with our own UI Kit. Check this [document for guide](https://github.com/react-declarative/react-declarative/blob/master/docs/other/how-to-implement-uikit.md)
 
 ## Contribute
 
