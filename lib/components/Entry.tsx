@@ -63,6 +63,7 @@ const oneLauncher = new class {
         data = {},
         payload = {},
     }: Partial<ILaunchConfig>) => {
+        console.log(JSON.stringify(fields, null, 2))
         deepFlat(fields).forEach((field) => {
             for (const [key, value] of Object.entries(field)) {
                 if (key === "type") {

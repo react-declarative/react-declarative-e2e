@@ -7,6 +7,7 @@ import TypedField from "../model/TypedField";
 
 import deepFlat from "../utils/deepFlat";
 import deepClone from "../utils/deepClone";
+import isObject from "../utils/isObject";
 
 const READY_CLASS = 'react-declarative__oneGenesisReady';
 
@@ -43,6 +44,9 @@ export const renderFields = async (page: Page, f: Field[], {
     deepFlat(fields).forEach((field) => {
         for (const [key, value] of Object.entries(field)) {
             if (Array.isArray(value)) {
+                continue;
+            }
+            if (isObject(value)) {
                 continue;
             }
             field[key] = stringify(value);

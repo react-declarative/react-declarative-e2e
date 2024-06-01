@@ -9,6 +9,10 @@ export type DeepPartial<T> = {
 
 export interface IWrappedLayout<Data = any, Payload = any> {
     /**
+     * Отменяет ожидание фокуса для валидации
+     */
+    dirty?: PickProp<IField, 'dirty'>;
+    /**
      * Идентификатор для отладки json шаблона
      */
     testId?: PickProp<IField, 'testId'>;

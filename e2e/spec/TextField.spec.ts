@@ -192,3 +192,52 @@ test("Will disable by condition", async ({ page }) => {
   const isDisabled = await componentGroup.getByTestId('text-field').getByRole('textbox').isDisabled();
   await expect(isDisabled).toBeTruthy();
 });
+
+test("Will validate required", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Text,
+      testId: 'text-field',
+      validation: {
+        required: true,
+      },
+      name: "text",
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  await componentGroup.getByTestId('text-field').click();
+  await expect(componentGroup).toContainText('Required');
+});
+
+test("Will validate min length", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Text,
+      testId: 'text-field',
+      validation: {
+        minLength: 5,
+      },
+      name: "text",
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  await writeText(page, 'text-field', "1234");
+  await expect(componentGroup).toContainText('Minimum length reached');
+});
+
+
+test("Will validate max length", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Text,
+      testId: 'text-field',
+      validation: {
+        maxLength: 5,
+      },
+      name: "text",
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  await writeText(page, 'text-field', "123456");
+  await expect(componentGroup).toContainText('Maximum length reached');
+});
