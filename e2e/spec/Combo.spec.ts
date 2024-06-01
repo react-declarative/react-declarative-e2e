@@ -26,6 +26,7 @@ test("Will accept freeSolo", async ({ page }) => {
   await componentGroup.getByTestId('combo-field').click();
   await page.keyboard.insertText("Hello world");
   await page.keyboard.press('Enter');
+  await page.waitForTimeout(1000);
   await expect(dataRef.combo).toEqual('Hello world');
 });
 
@@ -48,6 +49,7 @@ test("Will accept selection", async ({ page }) => {
   });
   await componentGroup.getByTestId('combo-field').click();
   await page.getByText("Foo").click();
+  await page.waitForTimeout(1000);
   await expect(dataRef.combo).toEqual('Foo');
 });
 
@@ -78,5 +80,6 @@ test("Will translate labels", async ({ page }) => {
   });
   await componentGroup.getByTestId('combo-field').click();
   const text = await page.textContent('*');
+  await page.waitForTimeout(1000);
   await expect(text).toContain('Foo');
 });

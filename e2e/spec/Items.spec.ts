@@ -26,6 +26,7 @@ test("Will accept freeSolo", async ({ page }) => {
   await componentGroup.getByTestId('items-field').click();
   await page.keyboard.insertText("Hello world");
   await page.keyboard.press('Enter');
+  await page.waitForTimeout(1000);
   await expect(dataRef.items).toEqual(expect.arrayContaining(['Hello world']));
 });
 
@@ -49,6 +50,7 @@ test("Will accept selection", async ({ page }) => {
   await componentGroup.getByTestId('items-field').click();
   await page.getByText("Foo").click();
   await page.getByText("Bar").click();
+  await page.waitForTimeout(1000);
   await expect(dataRef.items).toEqual(expect.arrayContaining(['Foo', 'Bar']));
 });
 
@@ -79,5 +81,6 @@ test("Will translate labels", async ({ page }) => {
   });
   await componentGroup.getByTestId('items-field').click();
   const text = await page.textContent('*');
+  await page.waitForTimeout(1000);
   await expect(text).toContain('Foo');
 });
