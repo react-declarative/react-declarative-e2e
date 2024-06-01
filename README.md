@@ -55,7 +55,6 @@ const fieldMap = {
     'init-field': FieldType.Init,
     'phony-field': FieldType.Phony,
     'complete-field': FieldType.Complete,
-    'items-field': FieldType.Items,
     'rating-field': FieldType.Rating,
     'fragment-layout': FieldType.Fragment,
     'div-layout': FieldType.Div,
@@ -74,7 +73,7 @@ const fieldMap = {
 3. [RadioField](./e2e/spec/Radio.spec.ts)
 4. [CheckboxField](./e2e/spec/Checkbox.spec.ts)
 5. [ComboField](./e2e/spec/Combo.spec.ts)
-
+6. [ItemsField](./e2e/spec/Items.spec.ts)
 
 ## Code Sample
 
