@@ -21,7 +21,9 @@ interface ILauncher {
     launch(config: Partial<ILaunchConfig>): void;
 }
 
-interface ICallbacks {
+interface IConfig extends Omit<ILaunchConfig, keyof {
+    fields: never;
+}> {
     focus: IOneProps['focus'];
     blur: IOneProps['blur'];
     change: IOneProps['change'];
@@ -39,7 +41,9 @@ export const renderFields = async (page: Page, f: Field[], {
     blur: oneBlur = (name, data) => console.log({ type: 'blur', name, data }),
     change: oneChange = (data, initial) => console.log({ type: 'change', data, initial }),
     focus: oneFocus = (name, data) => console.log({ type: 'focus', name, data }),
-}: Partial<ICallbacks> = {}) => {
+    data = {},
+    payload = {},
+}: Partial<IConfig> = {}) => {
     const fields = deepClone(f);
     deepFlat(fields).forEach((field) => {
         for (const [key, value] of Object.entries(field)) {
@@ -52,7 +56,7 @@ export const renderFields = async (page: Page, f: Field[], {
             field[key] = stringify(value);
         }
     });
-    const config: Partial<ILaunchConfig> = { fields };
+    const config: Partial<ILaunchConfig> = { fields, data, payload };
     await page.evaluate((config) => window.oneLauncher.launch(config), config);
     if (oneBlur) {
         await page.exposeFunction('oneBlur', oneBlur);

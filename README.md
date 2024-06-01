@@ -49,7 +49,6 @@ const fieldMap = {
     'progress-field': FieldType.Progress,
     'component-field': FieldType.Component,
     'slider-field': FieldType.Slider,
-    'combo-field': FieldType.Combo,
     'choose-field': FieldType.Choose,
     'tree-field': FieldType.Tree,
     'dict-field': FieldType.Dict,
@@ -74,6 +73,7 @@ const fieldMap = {
 2. [TextField](./e2e/spec/TextField.spec.ts)
 3. [RadioField](./e2e/spec/Radio.spec.ts)
 4. [CheckboxField](./e2e/spec/Checkbox.spec.ts)
+5. [ComboField](./e2e/spec/Combo.spec.ts)
 
 
 ## Code Sample
