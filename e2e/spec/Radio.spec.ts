@@ -2,7 +2,6 @@ import { expect, test } from "@playwright/test";
 
 import { waitForReady } from "../helpers/wait-for-ready";
 import { renderFields } from "../helpers/render-fields";
-import { writeText } from "../helpers/write-text";
 
 import TypedField from "../model/TypedField";
 import FieldType from "../model/FieldType";
@@ -102,4 +101,21 @@ test("Will change compute on selection", async ({ page }) => {
     await componentGroup.getByTestId('radio1-first').click();
     const inputValue = await componentGroup.getByTestId('compute-field').getByRole('textbox').inputValue();
     expect(inputValue).toEqual('It looks like radio #1 was cheched')
+});
+
+
+test("Changing another radio group will not affect first one", async ({ page }) => {
+    const componentGroup = await renderFields(page, fields);
+    await componentGroup.getByTestId('radio1-first').click();
+    await componentGroup.getByTestId('radio2-second').click();
+    const inputValue = await componentGroup.getByTestId('compute-field').getByRole('textbox').inputValue();
+    expect(inputValue).toEqual('It looks like radio #1 was cheched')
+});
+
+test("Changing another radio will affect text compute", async ({ page }) => {
+    const componentGroup = await renderFields(page, fields);
+    await componentGroup.getByTestId('radio1-first').click();
+    await componentGroup.getByTestId('radio1-second').click();
+    const inputValue = await componentGroup.getByTestId('compute-field').getByRole('textbox').inputValue();
+    expect(inputValue).toEqual('It looks like radio #2 was cheched')
 });
