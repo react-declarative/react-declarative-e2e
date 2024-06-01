@@ -1,3 +1,5 @@
+<img src="./docs/playwright-logo.svg" height="75px" align="right">
+
 # ⚛️ react-declarative-e2e
 
 > Playwright end-to-end testbed for [react-declarative](https://github.com/react-declarative/react-declarative)
