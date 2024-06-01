@@ -14,8 +14,8 @@ test.beforeEach(async ({ page }) => {
 test("Will render placeholder", async ({ page }) => {
   const fields: TypedField[] = [
     {
-        type: FieldType.Typography,
-        placeholder: 'Hello world',
+      type: FieldType.Typography,
+      placeholder: 'Hello world',
     },
   ];
   const componentGroup = await renderFields(page, fields);
