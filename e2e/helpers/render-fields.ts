@@ -42,6 +42,9 @@ export const renderFields = async (page: Page, f: Field[], {
     const fields = deepClone(f);
     deepFlat(fields).forEach((field) => {
         for (const [key, value] of Object.entries(field)) {
+            if (Array.isArray(value)) {
+                continue;
+            }
             field[key] = stringify(value);
         }
     });
