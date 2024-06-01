@@ -44,7 +44,6 @@ const fieldMap = {
     'paper-layout': FieldType.Paper,
     'outline-layout': FieldType.Outline,
     'expansion-layout': FieldType.Expansion,
-    'checkbox-field': FieldType.Checkbox,
     'date-field': FieldType.Date,
     'time-field': FieldType.Time,
     'progress-field': FieldType.Progress,
@@ -74,6 +73,7 @@ const fieldMap = {
 1. [TypographyField](./e2e/spec/Typography.spec.ts)
 2. [TextField](./e2e/spec/TextField.spec.ts)
 3. [RadioField](./e2e/spec/Radio.spec.ts)
+4. [CheckboxField](./e2e/spec/Checkbox.spec.ts)
 
 
 ## Code Sample
