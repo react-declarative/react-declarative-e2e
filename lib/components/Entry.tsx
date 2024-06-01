@@ -113,6 +113,7 @@ export const Entry = () => {
     return (
         <One
             handler={() => data}
+            sx={{ p: 1 }}
             fields={fields}
             payload={payload}
             onFocus={handleFocus}

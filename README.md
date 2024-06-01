@@ -44,7 +44,6 @@ const fieldMap = {
     'paper-layout': FieldType.Paper,
     'outline-layout': FieldType.Outline,
     'expansion-layout': FieldType.Expansion,
-    'radio-field': FieldType.Radio,
     'checkbox-field': FieldType.Checkbox,
     'date-field': FieldType.Date,
     'time-field': FieldType.Time,
@@ -74,3 +73,4 @@ const fieldMap = {
 
 1. [TypographyField](./e2e/spec/Typography.spec.ts)
 2. [TextField](./e2e/spec/TextField.spec.ts)
+3. [RadioField](./e2e/spec/Radio.spec.ts)
