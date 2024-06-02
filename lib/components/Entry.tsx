@@ -1,7 +1,9 @@
 import { get, set } from "lodash";
 import { useMemo } from "react";
-import { BehaviorSubject, FieldType, IField, LoaderView, One, deepFlat, singlerun, useAsyncValue } from "react-declarative";
+import { BehaviorSubject, FieldType, IField, LoaderView, One, deepFlat, singlerun, sleep, useAsyncValue } from "react-declarative";
 import IOneProps from "react-declarative/model/IOneProps";
+
+const AWAIT_MSG = "SYSTEM_LAUNCHER_READY";
 
 interface ILaunchConfig {
     fields: IField[];
@@ -57,6 +59,16 @@ const parseValue = (value: string) => {
     }
 };
 
+const waitForEnviroment = async (attempt = 0) => {
+    if (window.launcherReady) {
+        window.launcherReady(AWAIT_MSG);
+        return;
+    }
+    attempt && console.log(`launcherReady not mounted. attempt=${attempt}`);
+    await sleep();
+    await waitForEnviroment(attempt + 1);
+};
+
 const oneLauncher = new class {
     launch = singlerun(async ({
         fields = [],
@@ -85,6 +97,7 @@ const oneLauncher = new class {
 export const Entry = () => {
 
     const [config] = useAsyncValue(async () => {
+        await waitForEnviroment();
         if (beginSubject.data) {
             return beginSubject.data;
         }
@@ -130,6 +143,7 @@ declare global {
         oneFocus?: (...args: unknown[]) => void;
         oneBlur?: (...args: unknown[]) => void;
         oneChange?: (...args: unknown[]) => void;
+        launcherReady?: (msg: string) => void;
     }
 }
 

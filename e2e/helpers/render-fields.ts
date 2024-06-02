@@ -57,7 +57,19 @@ export const renderFields = async (page: Page, f: Field[], {
         }
     });
     const config: Partial<ILaunchConfig> = { fields, data, payload };
-    await page.evaluate((config) => window.oneLauncher.launch(config), config);
+    await page.evaluate((config) => {
+        const sleep = async (delay = 1_000) => new Promise((res) => setTimeout(() => res(undefined), delay));
+        const run = async (attempt = 0) => {
+            if ('oneLauncher' in window) {
+                window.oneLauncher.launch(config);
+                return;
+            }
+            attempt && console.log(`oneLauncher not mounted. attempt=${attempt}`);
+            await sleep();
+            await run(attempt + 1);
+        }
+        run();
+    }, config);
     if (oneBlur) {
         await page.exposeFunction('oneBlur', oneBlur);
     }
