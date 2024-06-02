@@ -43,7 +43,6 @@ npm run test
 const fieldMap = {
     'custom-layout': FieldType.Layout,
     'switch-field': FieldType.Switch,
-    'yesno-field': FieldType.YesNo,
     'line-field': FieldType.Line,
     'file-field': FieldType.File,
     'group-layout': FieldType.Group,
@@ -79,7 +78,8 @@ const fieldMap = {
 4. [CheckboxField](./e2e/spec/Checkbox.spec.ts)
 5. [ComboField](./e2e/spec/Combo.spec.ts)
 6. [ItemsField](./e2e/spec/Items.spec.ts)
-6. [TreeField](./e2e/spec/Tree.spec.ts)
+7. [TreeField](./e2e/spec/Tree.spec.ts)
+8. [YesNoField](./e2e/spec/YesNo.spec.ts)
 
 ## Code Sample
 
