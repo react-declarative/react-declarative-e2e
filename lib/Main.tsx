@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import Entry from "./components/Entry";
 import App from "./components/App";
+import { OneSlotFactory } from "react-declarative";
 
 export const Main = () => {
 
@@ -9,11 +10,18 @@ export const Main = () => {
         return url.searchParams.has('playwrite');
     }, []);
 
-    if (isPlaywrite) {
-        return <Entry />
-    }
+    const renderInner = () => {
+        if (isPlaywrite) {
+            return <Entry />
+        }
+        return <App />
+    };
 
-    return <App />
+    return (
+        <OneSlotFactory>
+            {renderInner()}
+        </OneSlotFactory>
+    );
 }
 
 export default Main;
