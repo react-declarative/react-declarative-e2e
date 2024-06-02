@@ -242,6 +242,55 @@ test("Will validate max length", async ({ page }) => {
   await expect(componentGroup).toContainText('Maximum length reached');
 });
 
+test("Will validate min numeric value", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Text,
+      testId: 'text-field',
+      validation: {
+        minNum: 5,
+      },
+      name: "text",
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  await writeText(page, 'text-field', "4");
+  await expect(componentGroup).toContainText('Minimum value reached');
+});
+
+
+test("Will validate max numeric value", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Text,
+      testId: 'text-field',
+      validation: {
+        maxNum: 5,
+      },
+      name: "text",
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  await writeText(page, 'text-field', "6");
+  await expect(componentGroup).toContainText('Maximum value reached');
+});
+
+test("Will validate numeric", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Text,
+      testId: 'text-field',
+      validation: {
+        numeric: true,
+      },
+      name: "text",
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  await writeText(page, 'text-field', "Hello wolrd");
+  await expect(componentGroup).toContainText('Must be a number');
+});
+
 test("Will show disabled state", async ({ page }) => {
   const fields: TypedField[] = [
     {

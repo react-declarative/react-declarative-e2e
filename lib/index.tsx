@@ -1,4 +1,5 @@
 import {
+  ErrorBoundary,
   ModalProvider,
   OneConfig,
   ScrollAdjust,
@@ -24,15 +25,17 @@ const tssCache = createCache({
 });
 
 const wrappedApp = (
+  <ErrorBoundary onError={(error, errorInfo) => console.log({ error, errorInfo })}>
     <CacheProvider value={muiCache}>
       <TssCacheProvider value={tssCache}>
-          <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
-            <ModalProvider>
-                <Entry />
-            </ModalProvider>
-          </LocalizationProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
+          <ModalProvider>
+            <Entry />
+          </ModalProvider>
+        </LocalizationProvider>
       </TssCacheProvider>
     </CacheProvider>
+  </ErrorBoundary>
 );
 
 const root = createRoot(container);

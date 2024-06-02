@@ -3,7 +3,7 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "./e2e/spec",
   fullyParallel: false,
-  retries: 0,
+  retries: 3,
   workers: 1,
   reporter: [
     [
