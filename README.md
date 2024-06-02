@@ -62,7 +62,7 @@ const fieldMap = {
 9. [SwitchField](./e2e/spec/Switch.spec.ts)
 10. [ProgressField](./e2e/spec/Progress.spec.ts)
 11. [SliderField](./e2e/spec/Slider.spec.ts)
-11. [ChooseField](./e2e/spec/Choose.spec.ts)
+12. [ChooseField](./e2e/spec/Choose.spec.ts)
 
 ## Code Sample
 

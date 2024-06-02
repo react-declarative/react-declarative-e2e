@@ -11,7 +11,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { TssCacheProvider } from "tss-react";
 import createCache from "@emotion/cache";
 import { createRoot } from "react-dom/client";
-import Entry from "./components/Entry";
+import Main from "./Main";
 
 const container = document.getElementById("root")!;
 
@@ -30,7 +30,7 @@ const wrappedApp = (
       <TssCacheProvider value={tssCache}>
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
           <ModalProvider>
-            <Entry />
+            <Main />
           </ModalProvider>
         </LocalizationProvider>
       </TssCacheProvider>

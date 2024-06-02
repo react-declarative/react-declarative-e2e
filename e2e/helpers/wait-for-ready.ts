@@ -13,7 +13,7 @@ const waitForIdle = async (page: Page) => {
 export const waitForReady = async (page: Page) => {
   await page.goto('about:blank');
   await waitForIdle(page);
-  await page.goto("http://localhost:3000/");
+  await page.goto("http://localhost:3000/?playwrite=1");
   await waitForIdle(page);
   await waitForMsg(page);
 };
