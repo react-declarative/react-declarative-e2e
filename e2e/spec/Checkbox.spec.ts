@@ -65,3 +65,19 @@ test("Will change compute on selection", async ({ page }) => {
     const inputValue = await componentGroup.getByTestId('compute-field').getByRole('textbox').inputValue();
     expect(inputValue).toEqual('checkbox1, checkbox3')
 });
+
+
+test("Will show disabled state", async ({ page }) => {
+    const fields: TypedField[] = [
+      {
+        type: FieldType.Checkbox,
+        testId: 'checkbox-field',
+        dirty: true,
+        isDisabled: () => true,
+        name: 'test'
+      },
+    ];
+    const componentGroup = await renderFields(page, fields);
+    const isDisabled = await componentGroup.getByLabel('Test').isDisabled();
+    await expect(isDisabled).toBeTruthy();
+});
