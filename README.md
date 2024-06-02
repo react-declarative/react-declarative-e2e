@@ -41,13 +41,6 @@ npm run test
 <!--
 ```
 const fieldMap = {
-    'custom-layout': FieldType.Layout,
-    'line-field': FieldType.Line,
-    'file-field': FieldType.File,
-    'group-layout': FieldType.Group,
-    'paper-layout': FieldType.Paper,
-    'outline-layout': FieldType.Outline,
-    'expansion-layout': FieldType.Expansion,
     'date-field': FieldType.Date,
     'time-field': FieldType.Time,
     'progress-field': FieldType.Progress,
@@ -55,18 +48,8 @@ const fieldMap = {
     'slider-field': FieldType.Slider,
     'choose-field': FieldType.Choose,
     'dict-field': FieldType.Dict,
-    'init-field': FieldType.Init,
-    'phony-field': FieldType.Phony,
     'complete-field': FieldType.Complete,
-    'rating-field': FieldType.Rating,
     'fragment-layout': FieldType.Fragment,
-    'div-layout': FieldType.Div,
-    'box-layout': FieldType.Box,
-    'tabs-layout': FieldType.Tabs,
-    'hero-layout': FieldType.Hero,
-    'center-layout': FieldType.Center,
-    'stretch-layout': FieldType.Stretch,
-    'condition-layout': FieldType.Condition,
 }
 ```
 -->
@@ -79,7 +62,7 @@ const fieldMap = {
 6. [ItemsField](./e2e/spec/Items.spec.ts)
 7. [TreeField](./e2e/spec/Tree.spec.ts)
 8. [YesNoField](./e2e/spec/YesNo.spec.ts)
-9. [Switch](./e2e/spec/Switch.spec.ts)
+9. [SwitchField](./e2e/spec/Switch.spec.ts)
 
 ## Code Sample
 
