@@ -101,7 +101,7 @@ test("Will translate value", async ({ page }) => {
     },
   ];
   const componentGroup = await renderFields(page, fields);
-  await componentGroup.getByTestId('choose-field').getByText('Choose').click();
+  await componentGroup.getByTestId('choose-field').getByRole('button').click();
   const inputValue = await componentGroup.getByTestId('choose-field').getByRole('combobox').inputValue();
   await expect(inputValue).toContain('Hello world');
 });
@@ -120,7 +120,7 @@ test("Will deselect value", async ({ page }) => {
       choose: "Hello world",
     },
   });
-  await componentGroup.getByTestId('choose-field').getByText('Deselect').click();
+  await componentGroup.getByTestId('choose-field').getByRole('button').click();
   const inputValue = await componentGroup.getByTestId('choose-field').getByRole('combobox').inputValue();
   await expect(inputValue).toContain('');
 });
