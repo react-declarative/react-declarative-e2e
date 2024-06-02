@@ -241,3 +241,18 @@ test("Will validate max length", async ({ page }) => {
   await writeText(page, 'text-field', "123456");
   await expect(componentGroup).toContainText('Maximum length reached');
 });
+
+test("Will show disabled state", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Text,
+      testId: 'text-field',
+      dirty: true,
+      isDisabled: () => true,
+      name: 'text'
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  const isDisabled = await componentGroup.getByLabel('Text').isDisabled();
+  await expect(isDisabled).toBeTruthy();
+});

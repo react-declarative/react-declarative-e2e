@@ -66,4 +66,32 @@ test("Will accept parent selection", async ({ page }) => {
     await page.waitForTimeout(1000);
     await expect(dataRef.tree).toEqual(expect.arrayContaining(['baz', 'bad']));
 });
-  
+
+test("Will show invalid message", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Tree,
+      testId: 'tree-field',
+      dirty: true,
+      isInvalid: () => "Invalid",
+      name: 'tree'
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  await expect(componentGroup).toContainText('Invalid');
+});
+
+test("Will show disabled state", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Tree,
+      testId: 'tree-field',
+      dirty: true,
+      isDisabled: () => true,
+      name: 'tree'
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  const isDisabled = await componentGroup.getByLabel('Tree').isDisabled();
+  await expect(isDisabled).toBeTruthy();
+});

@@ -83,3 +83,32 @@ test("Will translate labels", async ({ page }) => {
   await page.waitForTimeout(1000);
   await expect(text).toContain('Foo');
 });
+
+test("Will show invalid message", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Combo,
+      testId: 'combo-field',
+      dirty: true,
+      isInvalid: () => "Invalid",
+      name: 'combo'
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  await expect(componentGroup).toContainText('Invalid');
+});
+
+test("Will show disabled state", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Combo,
+      testId: 'combo-field',
+      dirty: true,
+      isDisabled: () => true,
+      name: 'combo'
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  const isDisabled = await componentGroup.getByLabel('Combo').isDisabled();
+  await expect(isDisabled).toBeTruthy();
+});
