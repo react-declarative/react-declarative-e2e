@@ -44,7 +44,6 @@ const fieldMap = {
     'date-field': FieldType.Date,
     'time-field': FieldType.Time,
     'component-field': FieldType.Component,
-    'slider-field': FieldType.Slider,
     'choose-field': FieldType.Choose,
     'dict-field': FieldType.Dict,
     'complete-field': FieldType.Complete,
@@ -63,6 +62,7 @@ const fieldMap = {
 8. [YesNoField](./e2e/spec/YesNo.spec.ts)
 9. [SwitchField](./e2e/spec/Switch.spec.ts)
 10. [ProgressField](./e2e/spec/Progress.spec.ts)
+11. [SliderField](./e2e/spec/Slider.spec.ts)
 
 ## Code Sample
 
