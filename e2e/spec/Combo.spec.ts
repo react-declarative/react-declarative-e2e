@@ -112,3 +112,18 @@ test("Will show disabled state", async ({ page }) => {
   const isDisabled = await componentGroup.getByLabel('Combo').isDisabled();
   await expect(isDisabled).toBeTruthy();
 });
+
+test("Will show readonly state", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Combo,
+      testId: 'combo-field',
+      dirty: true,
+      isReadonly: () => true,
+      name: 'combo'
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  const isEditable = await componentGroup.getByLabel('Combo').isEditable();
+  await expect(isEditable).toBeFalsy();
+});

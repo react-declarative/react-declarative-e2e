@@ -95,3 +95,18 @@ test("Will show disabled state", async ({ page }) => {
   const isDisabled = await componentGroup.getByLabel('Tree').isDisabled();
   await expect(isDisabled).toBeTruthy();
 });
+
+test("Will show readonly state", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Tree,
+      testId: 'tree-field',
+      dirty: true,
+      isReadonly: () => true,
+      name: 'tree'
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  const isEditable = await componentGroup.getByLabel('Tree').isEditable();
+  await expect(isEditable).toBeFalsy();
+});
