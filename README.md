@@ -42,7 +42,6 @@ npm run test
 ```
 const fieldMap = {
     'custom-layout': FieldType.Layout,
-    'switch-field': FieldType.Switch,
     'line-field': FieldType.Line,
     'file-field': FieldType.File,
     'group-layout': FieldType.Group,
@@ -80,6 +79,7 @@ const fieldMap = {
 6. [ItemsField](./e2e/spec/Items.spec.ts)
 7. [TreeField](./e2e/spec/Tree.spec.ts)
 8. [YesNoField](./e2e/spec/YesNo.spec.ts)
+9. [Switch](./e2e/spec/Switch.spec.ts)
 
 ## Code Sample
 
