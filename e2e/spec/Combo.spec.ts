@@ -127,3 +127,36 @@ test("Will show readonly state", async ({ page }) => {
   const isEditable = await componentGroup.getByLabel('Combo').isEditable();
   await expect(isEditable).toBeFalsy();
 });
+
+test("Will read value", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Combo,
+      freeSolo: true,
+      testId: 'combo-field',
+      name: 'combo'
+    },
+  ];
+  const componentGroup = await renderFields(page, fields, {
+    data: {
+      combo: "Hello world",
+    },
+  });
+  const inputValue = await componentGroup.getByTestId('combo-field').getByRole('combobox').inputValue();
+  await expect(inputValue).toContain('Hello world');
+});
+
+test("Will compute value", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Combo,
+      freeSolo: true,
+      testId: 'combo-field',
+      name: 'combo',
+      compute: () => "Hello world",
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  const inputValue = await componentGroup.getByTestId('combo-field').getByRole('combobox').inputValue();
+  await expect(inputValue).toContain('Hello world');
+});

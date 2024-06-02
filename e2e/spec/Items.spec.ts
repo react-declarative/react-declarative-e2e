@@ -128,3 +128,36 @@ test("Will show readonly state", async ({ page }) => {
   const isEditable = await componentGroup.getByLabel('Items').isEditable();
   await expect(isEditable).toBeFalsy();
 });
+
+test("Will read value", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Items,
+      freeSolo: true,
+      testId: 'items-field',
+      name: 'items'
+    },
+  ];
+  const componentGroup = await renderFields(page, fields, {
+    data: {
+      items: ["Hello", "world"],
+    },
+  });
+  await expect(componentGroup).toContainText('Hello');
+  await expect(componentGroup).toContainText('world');
+});
+
+test("Will compute value", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Items,
+      freeSolo: true,
+      testId: 'items-field',
+      name: 'items',
+      compute: () => ["Hello", "world"],
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  await expect(componentGroup).toContainText('Hello');
+  await expect(componentGroup).toContainText('world');
+});

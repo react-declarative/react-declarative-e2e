@@ -43,7 +43,6 @@ npm run test
 const fieldMap = {
     'date-field': FieldType.Date,
     'time-field': FieldType.Time,
-    'progress-field': FieldType.Progress,
     'component-field': FieldType.Component,
     'slider-field': FieldType.Slider,
     'choose-field': FieldType.Choose,
@@ -63,6 +62,7 @@ const fieldMap = {
 7. [TreeField](./e2e/spec/Tree.spec.ts)
 8. [YesNoField](./e2e/spec/YesNo.spec.ts)
 9. [SwitchField](./e2e/spec/Switch.spec.ts)
+10. [ProgressField](./e2e/spec/Progress.spec.ts)
 
 ## Code Sample
 

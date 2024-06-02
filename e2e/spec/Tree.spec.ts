@@ -11,39 +11,39 @@ test.beforeEach(async ({ page }) => {
 });
 
 const fields: TypedField[] = [
-    {
-      type: FieldType.Tree,
-      testId: 'tree-field',
-      itemTree: [
-        {
-            label: 'Foo',
-            value: 'foo',
-        },
-        {
-            label: 'Bar',
-            value: 'bar',
-            child: [
-                {
-                    label: 'Baz',
-                    value: 'baz'
-                },
-                {
-                    label: 'Bad',
-                    value: 'bad'
-                }
-            ]
-        },
-      ],
-      name: 'tree'
-    },
+  {
+    type: FieldType.Tree,
+    testId: 'tree-field',
+    itemTree: [
+      {
+        label: 'Foo',
+        value: 'foo',
+      },
+      {
+        label: 'Bar',
+        value: 'bar',
+        child: [
+          {
+            label: 'Baz',
+            value: 'baz'
+          },
+          {
+            label: 'Bad',
+            value: 'bad'
+          }
+        ]
+      },
+    ],
+    name: 'tree'
+  },
 ];
 
 test("Will accept child selection", async ({ page }) => {
   let dataRef: Record<string, unknown> = {};
   const componentGroup = await renderFields(page, fields, {
     change: (data) => {
-        console.log({data})
-        dataRef = data
+      console.log({ data })
+      dataRef = data
     },
   });
   await componentGroup.getByTestId('tree-field').click();
@@ -54,17 +54,17 @@ test("Will accept child selection", async ({ page }) => {
 });
 
 test("Will accept parent selection", async ({ page }) => {
-    let dataRef: Record<string, unknown> = {};
-    const componentGroup = await renderFields(page, fields, {
-        change: (data) => {
-            console.log({data})
-            dataRef = data
-        },
-    });
-    await componentGroup.getByTestId('tree-field').click();
-    await page.getByText("Bar").first().click();
-    await page.waitForTimeout(1000);
-    await expect(dataRef.tree).toEqual(expect.arrayContaining(['baz', 'bad']));
+  let dataRef: Record<string, unknown> = {};
+  const componentGroup = await renderFields(page, fields, {
+    change: (data) => {
+      console.log({ data })
+      dataRef = data
+    },
+  });
+  await componentGroup.getByTestId('tree-field').click();
+  await page.getByText("Bar").first().click();
+  await page.waitForTimeout(1000);
+  await expect(dataRef.tree).toEqual(expect.arrayContaining(['baz', 'bad']));
 });
 
 test("Will show invalid message", async ({ page }) => {
@@ -109,4 +109,76 @@ test("Will show readonly state", async ({ page }) => {
   const componentGroup = await renderFields(page, fields);
   const isEditable = await componentGroup.getByLabel('Tree').isEditable();
   await expect(isEditable).toBeFalsy();
+});
+
+
+test("Will read value", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Tree,
+      testId: 'tree-field',
+      itemTree: [
+        {
+          label: 'Foo',
+          value: 'foo',
+        },
+        {
+          label: 'Bar',
+          value: 'bar',
+          child: [
+            {
+              label: 'Baz',
+              value: 'baz'
+            },
+            {
+              label: 'Bad',
+              value: 'bad'
+            }
+          ]
+        },
+      ],
+      name: 'tree'
+    },
+  ];
+  const componentGroup = await renderFields(page, fields, {
+    data: {
+      tree: ["foo", "bad"],
+    },
+  });
+  await expect(componentGroup).toContainText('Foo');
+  await expect(componentGroup).toContainText('Bad');
+});
+
+test("Will compute value", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Tree,
+      testId: 'tree-field',
+      itemTree: [
+        {
+          label: 'Foo',
+          value: 'foo',
+        },
+        {
+          label: 'Bar',
+          value: 'bar',
+          child: [
+            {
+              label: 'Baz',
+              value: 'baz'
+            },
+            {
+              label: 'Bad',
+              value: 'bad'
+            }
+          ]
+        },
+      ],
+      compute: () => ['foo', 'bad'],
+      name: 'tree'
+    },
+  ];
+  const componentGroup = await renderFields(page, fields);
+  await expect(componentGroup).toContainText('Foo');
+  await expect(componentGroup).toContainText('Bad');
 });

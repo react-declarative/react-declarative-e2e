@@ -47,7 +47,6 @@ test("Will bind value", async ({ page }) => {
       type: FieldType.Typography,
       name: 'text',
       testId: 'typography-field',
-      compute: ({ text }) => text,
     },
     {
       type: FieldType.Text,
@@ -60,3 +59,22 @@ test("Will bind value", async ({ page }) => {
   const targetField = await componentGroup.getByTestId('typography-field');
   expect(targetField).toContainText('Hello world');
 });
+
+
+test("Will read value", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Typography,
+      name: 'text',
+      testId: 'typography-field',
+    },
+  ];
+  const componentGroup = await renderFields(page, fields, {
+    data: {
+      text: "Hello world"
+    }
+  });
+  const targetField = await componentGroup.getByTestId('typography-field');
+  expect(targetField).toContainText('Hello world');
+});
+

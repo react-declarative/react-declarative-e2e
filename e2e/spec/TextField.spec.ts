@@ -271,3 +271,20 @@ test("Will show readonly state", async ({ page }) => {
   const isEditable = await componentGroup.getByLabel('Text').isEditable();
   await expect(isEditable).toBeFalsy();
 });
+
+test("Will read value", async ({ page }) => {
+  const fields: TypedField[] = [
+    {
+      type: FieldType.Text,
+      testId: 'text-field',
+      name: 'text'
+    },
+  ];
+  const componentGroup = await renderFields(page, fields, {
+    data: {
+      text: "Hello world",
+    },
+  });
+  const inputValue = await componentGroup.getByRole('textbox').inputValue();
+  await expect(inputValue).toContain('Hello world');
+});
