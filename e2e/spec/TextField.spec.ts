@@ -375,3 +375,87 @@ test.describe('Unit', () => {
   });
 
 });
+
+test.describe('Integration', () => {
+
+  let browser: Browser;
+  let page: Page;
+
+  test.beforeAll(async () => {
+      browser = await chromium.launch();
+  });
+
+  test.beforeEach(async () => {
+      page = await browser.newPage();
+  });
+
+  test.afterEach(async () => {
+      await page.close();
+  });
+
+  test.afterAll(async () => {
+      await browser.close();
+  });
+
+  test.describe.configure({ retries: 3 });
+
+  const fields: TypedField[] = [
+      {
+          type: FieldType.Text,
+          name: 'text',
+          defaultValue: 'Hello world',
+          columns: '3',
+      },
+      {
+          type: FieldType.Text,
+          name: 'text',
+          defaultValue: 'Hello world',
+          columns: '3',
+      },
+      {
+          type: FieldType.Text,
+          name: 'text',
+          defaultValue: 'Hello world',
+          columns: '3',
+      },
+      {
+          type: FieldType.Text,
+          name: 'text',
+          defaultValue: 'Hello world',
+          columns: '3',
+      },
+      {
+          type: FieldType.Text,
+          name: 'text',
+          defaultValue: 'Hello world',
+          columns: '3',
+      },
+      {
+          type: FieldType.Text,
+          name: 'text',
+          defaultValue: 'Hello world',
+          columns: '3',
+      },
+      {
+          type: FieldType.Text,
+          name: 'text',
+          defaultValue: 'Hello world',
+          columns: '3',
+      },
+      {
+          type: FieldType.Text,
+          name: 'text',
+          defaultValue: 'Hello world',
+          columns: '3',
+      },
+  ];
+
+  test("Will match snapshot", async () => {
+      await renderFields(page, fields);
+      await expect(page).toHaveScreenshot({
+          maxDiffPixels: 100,
+      });
+  });
+
+});
+
