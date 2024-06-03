@@ -40,8 +40,6 @@ declare global {
 
 type Field = IField | TypedField;
 
-
-
 export const renderFields = retry(async (page: Page, f: Field[], {
     blur: oneBlur = (name, data) => console.log({ type: 'blur', name, data }),
     change: oneChange = (data, initial) => console.log({ type: 'change', data, initial }),
