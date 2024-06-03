@@ -70,6 +70,18 @@ test.describe('YesNo', () => {
         await expect(inputValue).toEqual("No");
     });
 
+    test("Will write value", async () => {
+        let dataRef;
+        const textField = await renderFields(page, fields, {
+            change: (data) => {
+                dataRef = data;
+            },
+        });
+        await textField.click();
+        await page.getByText("Yes", { exact: true }).first().click();
+        await expect(dataRef.yesno).toEqual(true);
+    });
+
     test("Will set true state", async () => {
         const textField = await renderFields(page, fields);
         await textField.click();

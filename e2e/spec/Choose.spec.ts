@@ -124,6 +124,24 @@ test.describe('Choose', () => {
     await expect(inputValue).toContain('Hello world');
   });
 
+  test("Will write value", async () => {
+    const fields: TypedField[] = [
+      {
+        type: FieldType.Choose,
+        testId: 'choose-field',
+        name: 'choose',
+        choose: () => "Hello world",
+      },
+    ];
+    let dataRef;
+    const componentGroup = await renderFields(page, fields, {
+      change: (data) => {
+        dataRef = data;
+      },
+    });
+    await componentGroup.getByTestId('choose-field').getByRole('button').click();
+    await expect(dataRef.choose).toEqual("Hello world");
+  });
 
   test("Will deselect value", async () => {
     const fields: TypedField[] = [

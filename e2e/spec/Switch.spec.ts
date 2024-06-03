@@ -100,4 +100,17 @@ test.describe('Switch', () => {
         await expect(isDisabled).toBeTruthy();
     });
 
+    test("Will write value", async () => {
+        let dataRef;
+        const componentGroup = await renderFields(page, fields, {
+            change: (data) => {
+                dataRef = data;
+            },
+        });
+        await componentGroup.getByTestId('switch1-first').getByRole("checkbox").click();
+        await componentGroup.getByTestId('switch1-third').getByRole("checkbox").click();
+        expect(dataRef.switch1).toBeTruthy();
+        expect(dataRef.switch3).toBeTruthy();
+    });
+
 });

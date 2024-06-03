@@ -107,4 +107,22 @@ test.describe('Slider', () => {
     });
 
 
+    test("Will write value", async () => {
+        const fields: TypedField[] = [
+            {
+                type: FieldType.Slider,
+                testId: 'slider-field',
+                maxSlider: 100,
+                name: "text",
+            },
+        ];
+        let dataRef;
+        const componentGroup = await renderFields(page, fields, {
+            change: (data) => {
+                dataRef = data;
+            },
+        });
+        await componentGroup.getByTestId('slider-field').click();
+        await expect(dataRef.text).toEqual(51);
+    });
 });

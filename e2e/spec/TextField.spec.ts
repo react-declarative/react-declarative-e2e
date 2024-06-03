@@ -60,6 +60,24 @@ test.describe('Text', () => {
     await expect(inputValue).toEqual('Hello world');
   });
 
+  test("Will write text", async () => {
+    const fields: TypedField[] = [
+      {
+        type: FieldType.Text,
+        testId: 'text-field',
+        name: 'text',
+      },
+    ];
+    let dataRef;
+    const componentGroup = await renderFields(page, fields, {
+      change: (data) => {
+        dataRef = data;
+      },
+    });
+    await writeText(page, 'text-field', "Hello world");
+    await expect(dataRef.text).toEqual('Hello world');
+  });
+
   test("Will format text by template", async () => {
     const fields: TypedField[] = [
       {

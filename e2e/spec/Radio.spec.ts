@@ -121,6 +121,17 @@ test.describe('Radio', () => {
         expect(inputValue).toEqual('It looks like radio #1 was cheched')
     });
 
+    test("Will write value", async () => {
+        let dataRef;
+        const componentGroup = await renderFields(page, fields, {
+            change: (data) => {
+                dataRef = data;
+            },
+        });
+        await componentGroup.getByTestId('radio1-first').click();
+        await componentGroup.getByTestId('radio1-third').click();
+        expect(dataRef.radio1).toEqual("third");
+    });
 
     test("Changing another radio group will not affect first one", async () => {
         const componentGroup = await renderFields(page, fields);

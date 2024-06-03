@@ -84,6 +84,18 @@ test.describe('Checkbox', () => {
         expect(inputValue).toEqual('checkbox1, checkbox3')
     });
 
+    test("Will write value", async () => {
+        let dataRef;
+        const componentGroup = await renderFields(page, fields, {
+            change: (data) => {
+                dataRef = data;
+            },
+        });
+        await componentGroup.getByTestId('checkbox1-first').click();
+        await componentGroup.getByTestId('checkbox1-third').click();
+        expect(dataRef.checkbox1).toBeTruthy();
+        expect(dataRef.checkbox3).toBeTruthy();
+    });
 
     test("Will show disabled state", async () => {
         const fields: TypedField[] = [

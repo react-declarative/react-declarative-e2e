@@ -60,7 +60,6 @@ test.describe('Tree', () => {
     let dataRef: Record<string, unknown> = {};
     const componentGroup = await renderFields(page, fields, {
       change: (data) => {
-        console.log({ data })
         dataRef = data
       },
     });
