@@ -1,98 +1,118 @@
-import { expect, test } from "@playwright/test";
+import { chromium, expect, test } from "@playwright/test";
 
-import { waitForReady } from "../helpers/wait-for-ready";
 import { renderFields } from "../helpers/render-fields";
 
 import TypedField from "../model/TypedField";
 import FieldType from "../model/FieldType";
 
-test.beforeEach(async ({ page }) => {
-    await waitForReady(page);
-});
+test.describe('YesNo', () => {
 
-const fields: TypedField[] = [
-    {
-        type: FieldType.YesNo,
-        name: 'yesno',
-        testId: 'yesno-field',
-        dirty: true,
-        isReadonly: ({ readonly }) => readonly,
-        isDisabled: ({ disabled }) => disabled,
-        isInvalid: ({ invalid }) => invalid || null,
-    },
-];
+    let browser;
+    let page;
 
-test("Will show intermediate state", async ({ page }) => {
-    const textField = await renderFields(page, fields, {
-        data: {
-            yesno: null,
+    test.beforeAll(async () => {
+        browser = await chromium.launch();
+    });
+
+    test.beforeEach(async () => {
+        page = await browser.newPage();
+    });
+
+    test.afterEach(async () => {
+        await page.close();
+    });
+
+    test.afterAll(async () => {
+        await browser.close();
+    });
+
+    test.describe.configure({ retries: 3 });
+
+    const fields: TypedField[] = [
+        {
+            type: FieldType.YesNo,
+            name: 'yesno',
+            testId: 'yesno-field',
+            dirty: true,
+            isReadonly: ({ readonly }) => readonly,
+            isDisabled: ({ disabled }) => disabled,
+            isInvalid: ({ invalid }) => invalid || null,
         },
+    ];
+
+    test("Will show intermediate state", async () => {
+        const textField = await renderFields(page, fields, {
+            data: {
+                yesno: null,
+            },
+        });
+        const inputValue = await textField.getByRole('combobox').inputValue();
+        await expect(inputValue).toEqual("");
     });
-    const inputValue = await textField.getByRole('combobox').inputValue();
-    await expect(inputValue).toEqual("");
-});
 
-test("Will show true state", async ({ page }) => {
-    const textField = await renderFields(page, fields, {
-        data: {
-            yesno: true,
-        },
+    test("Will show true state", async () => {
+        const textField = await renderFields(page, fields, {
+            data: {
+                yesno: true,
+            },
+        });
+        const inputValue = await textField.getByRole('combobox').inputValue();
+        await expect(inputValue).toEqual("Yes");
     });
-    const inputValue = await textField.getByRole('combobox').inputValue();
-    await expect(inputValue).toEqual("Yes");
-});
 
-test("Will show false state", async ({ page }) => {
-    const textField = await renderFields(page, fields, {
-        data: {
-            yesno: false,
-        },
+    test("Will show false state", async () => {
+        const textField = await renderFields(page, fields, {
+            data: {
+                yesno: false,
+            },
+        });
+        const inputValue = await textField.getByRole('combobox').inputValue();
+        await expect(inputValue).toEqual("No");
     });
-    const inputValue = await textField.getByRole('combobox').inputValue();
-    await expect(inputValue).toEqual("No");
-});
 
-test("Will set true state", async ({ page }) => {
-    const textField = await renderFields(page, fields);
-    await textField.click();
-    await page.getByText("Yes", { exact: true }).first().click();
-    const inputValue = await textField.getByRole('combobox').inputValue();
-    await expect(inputValue).toEqual("Yes");
-});
-
-test("Will set false state", async ({ page }) => {
-    const textField = await renderFields(page, fields);
-    await textField.click();
-    await page.getByText("No", { exact: true }).first().click();
-    const inputValue = await textField.getByRole('combobox').inputValue();
-    await expect(inputValue).toEqual("No");
-});
-
-test("Will show invalid message", async ({ page }) => {
-    const componentGroup = await renderFields(page, fields, {
-        data: {
-            invalid: "Invalid",
-        }
+    test("Will set true state", async () => {
+        const textField = await renderFields(page, fields);
+        await textField.click();
+        await page.getByText("Yes", { exact: true }).first().click();
+        const inputValue = await textField.getByRole('combobox').inputValue();
+        await expect(inputValue).toEqual("Yes");
     });
-    await expect(componentGroup).toContainText('Invalid');
-});
 
-test("Will show disabled state", async ({ page }) => {
-    const componentGroup = await renderFields(page, fields, {
-        data: {
-            disabled: true,
-        }
+    test("Will set false state", async () => {
+        const textField = await renderFields(page, fields);
+        await textField.click();
+        await page.getByText("No", { exact: true }).first().click();
+        const inputValue = await textField.getByRole('combobox').inputValue();
+        await expect(inputValue).toEqual("No");
     });
-    const isDisabled = await componentGroup.getByLabel('Yesno').isDisabled();
-    await expect(isDisabled).toBeTruthy();
-});
 
-test("Will show readonly state", async ({ page }) => {
-    const componentGroup = await renderFields(page, fields, {
-        data: {
-            readonly: true,
-        },
+    test("Will show invalid message", async () => {
+        const componentGroup = await renderFields(page, fields, {
+            data: {
+                invalid: "Invalid",
+            }
+        });
+        await expect(componentGroup).toContainText('Invalid');
     });
-    const isEditable = await componentGroup.getByLabel('Yesno').isEditable();
-    await expect(isEditable).toBeFalsy();
+
+    test("Will show disabled state", async () => {
+        const componentGroup = await renderFields(page, fields, {
+            data: {
+                disabled: true,
+            }
+        });
+        const isDisabled = await componentGroup.getByLabel('Yesno').isDisabled();
+        await expect(isDisabled).toBeTruthy();
+    });
+
+    test("Will show readonly state", async () => {
+        const componentGroup = await renderFields(page, fields, {
+            data: {
+                readonly: true,
+            },
+        });
+        const isEditable = await componentGroup.getByLabel('Yesno').isEditable();
+        await expect(isEditable).toBeFalsy();
+    });
+
 });

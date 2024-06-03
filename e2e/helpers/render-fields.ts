@@ -1,5 +1,5 @@
 import IOneProps from "react-declarative/model/IOneProps";
-import { Page } from "@playwright/test";
+import { Page, expect } from "@playwright/test";
 import stringify from "code-stringify";
 
 import IField from "../model/IField";
@@ -8,7 +8,6 @@ import TypedField from "../model/TypedField";
 import deepFlat from "../utils/deepFlat";
 import deepClone from "../utils/deepClone";
 import isObject from "../utils/isObject";
-import retry from "../utils/retry";
 
 import { waitForReady } from "./wait-for-ready";
 
@@ -40,14 +39,16 @@ declare global {
 
 type Field = IField | TypedField;
 
-export const renderFields = retry(async (page: Page, f: Field[], {
+export const renderFields = async (page: Page, f: Field[], {
     blur: oneBlur = (name, data) => console.log({ type: 'blur', name, data }),
     change: oneChange = (data, initial) => console.log({ type: 'change', data, initial }),
     focus: oneFocus = (name, data) => console.log({ type: 'focus', name, data }),
     data = {},
     payload = {},
 }: Partial<IConfig> = {}) => {
+    let isOk = true;
     try {
+        await waitForReady(page);
         const fields = deepClone(f);
         deepFlat(fields).forEach((field) => {
             for (const [key, value] of Object.entries(field)) {
@@ -87,8 +88,10 @@ export const renderFields = retry(async (page: Page, f: Field[], {
         await component.waitFor({ state: "visible" });
         return component;
     } catch (error) {
-        console.log('Render fields stuck. Another attempt');
-        await waitForReady(page);
-        throw error;
+        console.log('Browser context stuck. Another attempt');
+        isOk = false;
+    } finally {
+        expect(isOk).toBeTruthy();
     }
-});
+    return await page.locator('div');
+};
