@@ -41,8 +41,6 @@ npm run test
 <!--
 ```
 const fieldMap = {
-    'date-field': FieldType.Date,
-    'time-field': FieldType.Time,
     'component-field': FieldType.Component,
     'dict-field': FieldType.Dict,
     'fragment-layout': FieldType.Fragment,
@@ -63,6 +61,8 @@ const fieldMap = {
 11. [SliderField](./e2e/spec/Slider.spec.ts)
 12. [ChooseField](./e2e/spec/Choose.spec.ts)
 13. [CompleteField](./e2e/spec/Complete.spec.ts)
+14. [DateField](./e2e/spec/Date.spec.ts)
+15. [TimeField](./e2e/spec/Time.spec.ts)
 
 ## Code Sample
 
