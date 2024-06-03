@@ -4,8 +4,8 @@
 
 > Playwright end-to-end testbed for [react-declarative](https://github.com/react-declarative/react-declarative)
 
-![Build Status](https://raw.githubusercontent.com/dwyl/repo-badges/main/svg/build-passing.svg)
-![Code Coverage](https://raw.githubusercontent.com/dwyl/repo-badges/main/svg/coverage-100.svg)
+![Build Status Passing](https://raw.githubusercontent.com/dwyl/repo-badges/main/svg/build-passing.svg)
+![Code Coverage 100%](https://raw.githubusercontent.com/dwyl/repo-badges/main/svg/coverage-100.svg)
 
 ![screenshot](./docs/screenshot.png)
 
