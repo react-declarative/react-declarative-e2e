@@ -1,4 +1,4 @@
-import { chromium, expect, test } from "@playwright/test";
+import { Browser, Page, chromium, expect, test } from "@playwright/test";
 
 import { renderFields } from "../helpers/render-fields";
 
@@ -7,8 +7,8 @@ import FieldType from "../model/FieldType";
 
 test.describe('Tree', () => {
 
-  let browser;
-  let page;
+  let browser: Browser;
+  let page: Page;
 
   test.beforeAll(async () => {
     browser = await chromium.launch();
