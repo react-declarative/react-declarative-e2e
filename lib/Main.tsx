@@ -5,13 +5,13 @@ import { OneSlotFactory } from "react-declarative";
 
 export const Main = () => {
 
-    const isPlaywrite = useMemo(() => {
+    const isPlaywright = useMemo(() => {
         const url = new URL(location.href, location.origin);
-        return url.searchParams.has('playwrite');
+        return url.searchParams.has('playwright');
     }, []);
 
     const renderInner = () => {
-        if (isPlaywrite) {
+        if (isPlaywright) {
             return <Entry />
         }
         return <App />
