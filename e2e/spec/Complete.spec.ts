@@ -5,7 +5,7 @@ import { renderFields } from "../helpers/render-fields";
 import TypedField from "../model/TypedField";
 import FieldType from "../model/FieldType";
 
-test.describe('Complete', () => {
+test.describe('Unit', () => {
 
   let browser: Browser;
   let page: Page;

@@ -6,7 +6,7 @@ import { writeText } from "../helpers/write-text";
 import TypedField from "../model/TypedField";
 import FieldType from "../model/FieldType";
 
-test.describe('Progress', () => {
+test.describe('Unit', () => {
 
     let browser: Browser;
     let page: Page;
