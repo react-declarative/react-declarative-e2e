@@ -12,6 +12,7 @@ import { TssCacheProvider } from "tss-react";
 import createCache from "@emotion/cache";
 import { createRoot } from "react-dom/client";
 import Main from "./Main";
+import "./polyfill";
 
 const container = document.getElementById("root")!;
 

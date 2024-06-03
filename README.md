@@ -38,15 +38,7 @@ npm run test
 
 ## Test Cases
 
-<!--
-```
-const fieldMap = {
-    'component-field': FieldType.Component,
-    'dict-field': FieldType.Dict,
-    'fragment-layout': FieldType.Fragment,
-}
-```
--->
+**Fields:**
 
 1. [TypographyField](./e2e/spec/Typography.spec.ts)
 2. [TextField](./e2e/spec/TextField.spec.ts)
@@ -63,6 +55,10 @@ const fieldMap = {
 13. [CompleteField](./e2e/spec/Complete.spec.ts)
 14. [DateField](./e2e/spec/Date.spec.ts)
 15. [TimeField](./e2e/spec/Time.spec.ts)
+
+**Layouts:**
+
+1. [FragmentLayout](./e2e/spec/Fragment.spec.ts)
 
 ## Code Sample
 

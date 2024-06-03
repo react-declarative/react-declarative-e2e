@@ -8,6 +8,9 @@ import TypedField from "../model/TypedField";
 import deepFlat from "../utils/deepFlat";
 import deepClone from "../utils/deepClone";
 import isObject from "../utils/isObject";
+import retry from "../utils/retry";
+
+import { waitForReady } from "./wait-for-ready";
 
 const READY_CLASS = 'react-declarative__oneGenesisReady';
 
@@ -37,49 +40,57 @@ declare global {
 
 type Field = IField | TypedField;
 
-export const renderFields = async (page: Page, f: Field[], {
+
+
+export const renderFields = retry(async (page: Page, f: Field[], {
     blur: oneBlur = (name, data) => console.log({ type: 'blur', name, data }),
     change: oneChange = (data, initial) => console.log({ type: 'change', data, initial }),
     focus: oneFocus = (name, data) => console.log({ type: 'focus', name, data }),
     data = {},
     payload = {},
 }: Partial<IConfig> = {}) => {
-    const fields = deepClone(f);
-    deepFlat(fields).forEach((field) => {
-        for (const [key, value] of Object.entries(field)) {
-            if (Array.isArray(value)) {
-                continue;
+    try {
+        const fields = deepClone(f);
+        deepFlat(fields).forEach((field) => {
+            for (const [key, value] of Object.entries(field)) {
+                if (Array.isArray(value)) {
+                    continue;
+                }
+                if (isObject(value)) {
+                    continue;
+                }
+                field[key] = stringify(value);
             }
-            if (isObject(value)) {
-                continue;
+        });
+        const config: Partial<ILaunchConfig> = { fields, data, payload };
+        await page.evaluate((config) => {
+            const sleep = async (delay = 1_000) => new Promise((res) => setTimeout(() => res(undefined), delay));
+            const run = async (attempt = 0) => {
+                if ('oneLauncher' in window) {
+                    window.oneLauncher.launch(config);
+                    return;
+                }
+                attempt && console.log(`oneLauncher not mounted. attempt=${attempt}`);
+                await sleep();
+                await run(attempt + 1);
             }
-            field[key] = stringify(value);
+            run();
+        }, config);
+        if (oneBlur) {
+            await page.exposeFunction('oneBlur', oneBlur);
         }
-    });
-    const config: Partial<ILaunchConfig> = { fields, data, payload };
-    await page.evaluate((config) => {
-        const sleep = async (delay = 1_000) => new Promise((res) => setTimeout(() => res(undefined), delay));
-        const run = async (attempt = 0) => {
-            if ('oneLauncher' in window) {
-                window.oneLauncher.launch(config);
-                return;
-            }
-            attempt && console.log(`oneLauncher not mounted. attempt=${attempt}`);
-            await sleep();
-            await run(attempt + 1);
+        if (oneFocus) {
+            await page.exposeFunction('oneFocus', oneFocus);
         }
-        run();
-    }, config);
-    if (oneBlur) {
-        await page.exposeFunction('oneBlur', oneBlur);
+        if (oneChange) {
+            await page.exposeFunction('oneChange', oneChange);
+        }
+        const component = await page.getByTestId(READY_CLASS);
+        await component.waitFor({ state: "visible" });
+        return component;
+    } catch (error) {
+        console.log('Render fields stuck. Another attempt');
+        await waitForReady(page);
+        throw error;
     }
-    if (oneFocus) {
-        await page.exposeFunction('oneFocus', oneFocus);
-    }
-    if (oneChange) {
-        await page.exposeFunction('oneChange', oneChange);
-    }
-    const component = await page.getByTestId(READY_CLASS);
-    await component.waitFor({ state: "visible" });
-    return component;
-};
+});
