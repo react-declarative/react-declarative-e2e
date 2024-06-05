@@ -119,6 +119,11 @@ export const Entry = () => {
         window.oneChange && window.oneChange(...params);
     }, []);
 
+    const handleClick = useMemo((): IOneProps['click'] => (...args) => {
+        const params = args.map((value) => typeof value === "function" ? null : value);
+        window.oneClick && window.oneClick(...params);
+    }, []);
+
     if (!config) {
         return <LoaderView sx={{ height: '100%', width: '100%' }} />
     }
@@ -130,6 +135,7 @@ export const Entry = () => {
             handler={() => data}
             fields={fields}
             payload={payload}
+            onClick={handleClick}
             onFocus={handleFocus}
             onBlur={handleBlur}
             onChange={handleChange}
@@ -143,6 +149,7 @@ declare global {
         oneFocus?: (...args: unknown[]) => void;
         oneBlur?: (...args: unknown[]) => void;
         oneChange?: (...args: unknown[]) => void;
+        oneClick?: (...args: unknown[]) => void;
         launcherReady?: (msg: string) => void;
     }
 }

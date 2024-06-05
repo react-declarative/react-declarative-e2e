@@ -18,6 +18,17 @@ This will help you to tweak `react-declarative` with your own UI Kit. Check this
 > [!IMPORTANT]
 > Made especially for newbies as an advanced documentation for `react-declarative` to solve their problems. **⭐Star** and **💻Fork** It [on github](https://github.com/react-declarative/react-declarative) will be appreciated
 
+<!--
+    'expansion-layout': FieldType.Expansion,
+    'div-layout': FieldType.Div,
+    'box-layout': FieldType.Box,
+    'tabs-layout': FieldType.Tabs,
+    'hero-layout': FieldType.Hero,
+    'center-layout': FieldType.Center,
+    'stretch-layout': FieldType.Stretch,
+    'condition-layout': FieldType.Condition,
+-->
+
 ## Usage
 
 1. Build the project
@@ -62,6 +73,10 @@ npm run test
 **Layouts:**
 
 1. [FragmentLayout](./e2e/spec/Fragment.spec.ts)
+2. [GroupLayout](./e2e/spec/Group.spec.ts)
+3. [PaperLayout](./e2e/spec/Paper.spec.ts)
+4. [OutlineLayout](./e2e/spec/Outline.spec.ts)
+4. [ExpansionLayout](./e2e/spec/Expansion.spec.ts)
 
 ## Code Sample
 

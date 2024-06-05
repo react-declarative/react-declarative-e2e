@@ -26,6 +26,7 @@ interface ILauncher {
 interface IConfig extends Omit<ILaunchConfig, keyof {
     fields: never;
 }> {
+    click: IOneProps['click'];
     focus: IOneProps['focus'];
     blur: IOneProps['blur'];
     change: IOneProps['change'];
@@ -43,6 +44,7 @@ export const renderFields = async (page: Page, f: Field[], {
     blur: oneBlur = (name, data) => console.log({ type: 'blur', name, data }),
     change: oneChange = (data, initial) => console.log({ type: 'change', data, initial }),
     focus: oneFocus = (name, data) => console.log({ type: 'focus', name, data }),
+    click: oneClick = (name, data) => console.log({ type: 'click', name, data }),
     data = {},
     payload = {},
 }: Partial<IConfig> = {}) => {
@@ -83,6 +85,9 @@ export const renderFields = async (page: Page, f: Field[], {
         }
         if (oneChange) {
             await page.exposeFunction('oneChange', oneChange);
+        }
+        if (oneClick) {
+            await page.exposeFunction('oneClick', oneClick);
         }
         const component = await page.getByTestId(READY_CLASS);
         await component.waitFor({ state: "visible" });
