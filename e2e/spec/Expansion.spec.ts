@@ -39,6 +39,7 @@ test.describe('Unit', () => {
             type: FieldType.Expansion,
             expansionOpened: true,
             isVisible: ({ visible }) => visible,
+            isDisabled: ({ disabled }) => disabled,
             child: {
                 type: FieldType.Text,
                 testId: 'child-field',
@@ -85,6 +86,24 @@ test.describe('Unit', () => {
         const component = await componentExpansion.getByTestId('child-field');
         await component.evaluate((e: HTMLElement) => e.click());
         await expect(isClicked).toBeTruthy();
+    });
+
+    test("Will skip click if disabled", async () => {
+        let isClicked = false;
+        const componentExpansion = await renderFields(page, fields, {
+            data: {
+                visible: true,
+                disabled: true,
+            },
+            click: (name) => {
+                if (name === "text") {
+                    isClicked = true
+                }
+            },
+        });
+        const component = await componentExpansion.getByTestId('child-field');
+        await component.evaluate((e: HTMLElement) => e.click());
+        await expect(isClicked).toBeFalsy();
     });
 
 });

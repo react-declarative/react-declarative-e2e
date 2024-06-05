@@ -18,17 +18,6 @@ This will help you to tweak `react-declarative` with your own UI Kit. Check this
 > [!IMPORTANT]
 > Made especially for newbies as an advanced documentation for `react-declarative` to solve their problems. **⭐Star** and **💻Fork** It [on github](https://github.com/react-declarative/react-declarative) will be appreciated
 
-<!--
-    'expansion-layout': FieldType.Expansion,
-    'div-layout': FieldType.Div,
-    'box-layout': FieldType.Box,
-    'tabs-layout': FieldType.Tabs,
-    'hero-layout': FieldType.Hero,
-    'center-layout': FieldType.Center,
-    'stretch-layout': FieldType.Stretch,
-    'condition-layout': FieldType.Condition,
--->
-
 ## Usage
 
 1. Build the project
