@@ -129,6 +129,23 @@ test.describe('Unit', () => {
     await expect(inputValue).toEqual('+7(999)673-56-58');
   });
 
+  test("Will allow only reqexp", async () => {
+    const fields: TypedField[] = [
+      {
+        type: FieldType.Text,
+        testId: 'text-field',
+        inputFormatterAllowed: /^[0-9.]/,
+        inputFormatterTemplate: "000000000000000",
+        name: 'date',
+      },
+    ];
+    const componentGroup = await renderFields(page, fields);
+    await writeText(page, 'text-field', "123abc456");
+    const textField = await componentGroup.getByTestId('text-field');
+    const inputValue = await textField.getByRole('textbox').inputValue();
+    await expect(inputValue).toEqual('123456');
+  });
+
 
   test("Will compute value", async () => {
     const fields: TypedField[] = [
