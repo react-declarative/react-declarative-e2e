@@ -6,6 +6,8 @@ import { writeText } from "../helpers/write-text";
 import TypedField from "../model/TypedField";
 import FieldType from "../model/FieldType";
 
+declare function isNaN(number: any): boolean;
+
 test.describe('Unit', () => {
 
   let browser: Browser;
@@ -134,16 +136,17 @@ test.describe('Unit', () => {
       {
         type: FieldType.Text,
         testId: 'text-field',
-        inputFormatterAllowed: /^[0-9.]/,
+        inputFormatterSymbol: '0',
+        inputFormatterAllowed: (char) => !isNaN(char),
         inputFormatterTemplate: "000000000000000",
         name: 'date',
       },
     ];
     const componentGroup = await renderFields(page, fields);
-    await writeText(page, 'text-field', "123abc456");
+    await writeText(page, 'text-field', "123abc123");
     const textField = await componentGroup.getByTestId('text-field');
     const inputValue = await textField.getByRole('textbox').inputValue();
-    await expect(inputValue).toEqual('123456');
+    await expect(inputValue).toEqual('123123');
   });
 
 
