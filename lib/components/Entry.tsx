@@ -23,6 +23,8 @@ const fieldMap = {
     'expansion-layout': FieldType.Expansion,
     'radio-field': FieldType.Radio,
     'checkbox-field': FieldType.Checkbox,
+    'button-field': FieldType.Button,
+    'icon-field': FieldType.Icon,
     'text-field': FieldType.Text,
     'date-field': FieldType.Date,
     'time-field': FieldType.Time,

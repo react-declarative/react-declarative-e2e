@@ -36,7 +36,8 @@ import { IYesNoFieldProps } from 'react-declarative/components/One/fields/YesNoF
 import { IInitFieldProps } from 'react-declarative/components/One/fields/InitField';
 import { IDictFieldProps } from 'react-declarative/components/One/fields/DictField';
 import { ITreeFieldProps } from 'react-declarative/components/One/fields/TreeField';
-
+import { IIconFieldProps } from 'react-declarative/components/One/fields/IconField';
+import { IButtonFieldProps } from 'react-declarative/components/One/fields/ButtonField';
 
 import { IPhonyField } from 'react-declarative/model/IPhonyField';
 
@@ -104,6 +105,8 @@ type Condition<Data = any, Payload = any> = TypedFieldFactory<FieldType.Conditio
 type Line<Data = any, Payload = any> = TypedFieldFactory<FieldType.Line, ILineFieldProps<Data, Payload>, Data, Payload>;
 
 type Checkbox<Data = any, Payload = any> = TypedFieldFactoryShallow<FieldType.Checkbox, ICheckboxFieldProps<Data, Payload>, Data, Payload>;
+type Icon<Data = any, Payload = any> = TypedFieldFactoryShallow<FieldType.Icon, IIconFieldProps<Data, Payload>, Data, Payload>;
+type Button<Data = any, Payload = any> = TypedFieldFactoryShallow<FieldType.Button, IButtonFieldProps<Data, Payload>, Data, Payload>;
 type Combo<Data = any, Payload = any> = TypedFieldFactoryShallow<FieldType.Combo, IComboFieldProps<Data, Payload>, Data, Payload>;
 type Component<Data = any, Payload = any> = TypedFieldFactoryShallow<FieldType.Component, IComponentFieldProps<Data, Payload>, Data, Payload>;
 type Items<Data = any, Payload = any> = TypedFieldFactoryShallow<FieldType.Items, IItemsFieldProps<Data, Payload>, Data, Payload>;
@@ -135,6 +138,8 @@ export type TypedFieldRegistry<Data = any, Payload = any, Target = any> =
   : Target extends Paper<Data, Payload> ? Paper<Data, Payload>
   : Target extends Outline<Data, Payload> ? Outline<Data, Payload>
   : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload>
+  : Target extends Button<Data, Payload> ? Button<Data, Payload>
+  : Target extends Icon<Data, Payload> ? Icon<Data, Payload>
   : Target extends Combo<Data, Payload> ? Combo<Data, Payload>
   : Target extends Component<Data, Payload> ? Component<Data, Payload>
   : Target extends Items<Data, Payload> ? Items<Data, Payload>

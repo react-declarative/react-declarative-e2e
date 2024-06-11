@@ -10,6 +10,8 @@ export const enum FieldType {
     Expansion= 'expansion-layout',
     Radio = 'radio-field',
     Checkbox = 'checkbox-field',
+    Button = 'button-field',
+    Icon = 'icon-field',
     Text = 'text-field',
     Date = 'date-field',
     Time = 'time-field',

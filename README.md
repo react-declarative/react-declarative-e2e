@@ -67,6 +67,11 @@ npm run test
 4. [OutlineLayout](./e2e/spec/Outline.spec.ts)
 4. [ExpansionLayout](./e2e/spec/Expansion.spec.ts)
 
+**Actions:**
+
+1. [ButtonField](./e2e/spec/Button.spec.ts)
+2. [IconField](./e2e/spec/Icon.spec.ts)
+
 ## Code Sample
 
 ```tsx
