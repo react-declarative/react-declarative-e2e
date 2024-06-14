@@ -1,11 +1,11 @@
 import { Browser, Page, chromium, expect, test } from "@playwright/test";
 
-import { renderFields } from "../helpers/render-fields";
+import { renderFields } from "../../helpers/render-fields";
 
-import TypedField from "../model/TypedField";
-import FieldType from "../model/FieldType";
+import TypedField from "../../model/TypedField";
+import FieldType from "../../model/FieldType";
 
-test.describe('Unit', () => {
+test.describe('Unit', { tag: "@fields" }, () => {
 
     let browser: Browser;
     let page: Page;

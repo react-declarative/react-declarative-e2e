@@ -1,11 +1,11 @@
 import { Browser, Page, chromium, expect, test } from "@playwright/test";
 
-import { renderFields } from "../helpers/render-fields";
+import { renderFields } from "../../helpers/render-fields";
 
-import TypedField from "../model/TypedField";
-import FieldType from "../model/FieldType";
+import TypedField from "../../model/TypedField";
+import FieldType from "../../model/FieldType";
 
-test.describe('Unit', () => {
+test.describe('Unit', { tag: "@fields" }, () => {
 
   let browser: Browser;
   let page: Page;
@@ -31,51 +31,52 @@ test.describe('Unit', () => {
   test("Will accept freeSolo", async () => {
     const fields: TypedField[] = [
       {
-        type: FieldType.Combo,
-        testId: 'combo-field',
+        type: FieldType.Items,
+        testId: 'items-field',
         freeSolo: true,
-        name: 'combo'
+        name: 'items'
       },
     ];
     let dataRef: Record<string, unknown> = {};
     const componentGroup = await renderFields(page, fields, {
       change: (data) => dataRef = data,
     });
-    await componentGroup.getByTestId('combo-field').click();
+    await componentGroup.getByTestId('items-field').click();
     await page.keyboard.insertText("Hello world");
     await page.keyboard.press('Enter');
     await page.waitForTimeout(1000);
-    await expect(dataRef.combo).toEqual('Hello world');
+    await expect(dataRef.items).toEqual(expect.arrayContaining(['Hello world']));
   });
 
   test("Will accept selection", async () => {
     const fields: TypedField[] = [
       {
-        type: FieldType.Combo,
-        testId: 'combo-field',
+        type: FieldType.Items,
+        testId: 'items-field',
         itemList: [
           "Foo",
           "Bar",
           "Baz",
         ],
-        name: 'combo'
+        name: 'items'
       },
     ];
     let dataRef: Record<string, unknown> = {};
     const componentGroup = await renderFields(page, fields, {
       change: (data) => dataRef = data,
     });
-    await componentGroup.getByTestId('combo-field').click();
+    await componentGroup.getByTestId('items-field').click();
     await page.getByText("Foo").click();
+    await page.getByText("Bar").click();
     await page.waitForTimeout(1000);
-    await expect(dataRef.combo).toEqual('Foo');
+    await expect(dataRef.items).toEqual(expect.arrayContaining(['Foo', 'Bar']));
   });
 
   test("Will translate labels", async () => {
     const fields: TypedField[] = [
       {
-        type: FieldType.Combo,
-        testId: 'combo-field',
+        type: FieldType.Items,
+        testId: 'items-field',
         itemList: [
           "foo-id",
           "bar-id",
@@ -89,14 +90,14 @@ test.describe('Unit', () => {
           };
           return valueMap[value] ?? value;
         },
-        name: 'combo'
+        name: 'items'
       },
     ];
     let dataRef: Record<string, unknown> = {};
     const componentGroup = await renderFields(page, fields, {
       change: (data) => dataRef = data,
     });
-    await componentGroup.getByTestId('combo-field').click();
+    await componentGroup.getByTestId('items-field').click();
     const text = await page.textContent('*');
     await page.waitForTimeout(1000);
     await expect(text).toContain('Foo');
@@ -105,11 +106,11 @@ test.describe('Unit', () => {
   test("Will show invalid message", async () => {
     const fields: TypedField[] = [
       {
-        type: FieldType.Combo,
-        testId: 'combo-field',
+        type: FieldType.Items,
+        testId: 'items-field',
         dirty: true,
         isInvalid: () => "Invalid",
-        name: 'combo'
+        name: 'items'
       },
     ];
     const componentGroup = await renderFields(page, fields);
@@ -119,69 +120,69 @@ test.describe('Unit', () => {
   test("Will show disabled state", async () => {
     const fields: TypedField[] = [
       {
-        type: FieldType.Combo,
-        testId: 'combo-field',
+        type: FieldType.Items,
+        testId: 'items-field',
         dirty: true,
         isDisabled: () => true,
-        name: 'combo'
+        name: 'items'
       },
     ];
     const componentGroup = await renderFields(page, fields);
-    const isDisabled = await componentGroup.getByLabel('Combo').isDisabled();
+    const isDisabled = await componentGroup.getByLabel('Items').isDisabled();
     await expect(isDisabled).toBeTruthy();
   });
 
   test("Will show readonly state", async () => {
     const fields: TypedField[] = [
       {
-        type: FieldType.Combo,
-        testId: 'combo-field',
+        type: FieldType.Items,
+        testId: 'items-field',
         dirty: true,
         isReadonly: () => true,
-        name: 'combo'
+        name: 'items'
       },
     ];
     const componentGroup = await renderFields(page, fields);
-    const isEditable = await componentGroup.getByLabel('Combo').isEditable();
+    const isEditable = await componentGroup.getByLabel('Items').isEditable();
     await expect(isEditable).toBeFalsy();
   });
 
   test("Will read value", async () => {
     const fields: TypedField[] = [
       {
-        type: FieldType.Combo,
+        type: FieldType.Items,
         freeSolo: true,
-        testId: 'combo-field',
-        name: 'combo'
+        testId: 'items-field',
+        name: 'items'
       },
     ];
     const componentGroup = await renderFields(page, fields, {
       data: {
-        combo: "Hello world",
+        items: ["Hello", "world"],
       },
     });
-    const inputValue = await componentGroup.getByTestId('combo-field').getByRole('combobox').inputValue();
-    await expect(inputValue).toContain('Hello world');
+    await expect(componentGroup).toContainText('Hello');
+    await expect(componentGroup).toContainText('world');
   });
 
   test("Will compute value", async () => {
     const fields: TypedField[] = [
       {
-        type: FieldType.Combo,
+        type: FieldType.Items,
         freeSolo: true,
-        testId: 'combo-field',
-        name: 'combo',
-        compute: () => "Hello world",
+        testId: 'items-field',
+        name: 'items',
+        compute: () => ["Hello", "world"],
       },
     ];
     const componentGroup = await renderFields(page, fields);
-    const inputValue = await componentGroup.getByTestId('combo-field').getByRole('combobox').inputValue();
-    await expect(inputValue).toContain('Hello world');
+    await expect(componentGroup).toContainText('Hello');
+    await expect(componentGroup).toContainText('world');
   });
 
 });
 
-test.describe('Integration', () => {
+test.describe('Integration', { tag: "@fields" }, () => {
 
   let browser: Browser;
   let page: Page;
@@ -206,65 +207,69 @@ test.describe('Integration', () => {
 
   const fields: TypedField[] = [
     {
-      type: FieldType.Combo,
+      type: FieldType.Items,
       freeSolo: true,
-      compute: () => "Hello world",
-      name: 'combo',
+      compute: () => ["Hello", "world"],
+      name: 'items',
       columns: '3',
     },
     {
-      type: FieldType.Combo,
+      type: FieldType.Items,
       freeSolo: true,
-      compute: () => "Hello world",
-      name: 'combo',
+      compute: () => ["Hello", "world"],
+      name: 'items',
       columns: '3',
     },
     {
-      type: FieldType.Combo,
+      type: FieldType.Items,
       freeSolo: true,
-      compute: () => "Hello world",
-      name: 'combo',
+      compute: () => ["Hello", "world"],
+      name: 'items',
       columns: '3',
     },
     {
-      type: FieldType.Combo,
+      type: FieldType.Items,
       freeSolo: true,
-      compute: () => "Hello world",
-      name: 'combo',
+      compute: () => ["Hello", "world"],
+      name: 'items',
       columns: '3',
     },
     {
-      type: FieldType.Combo,
+      type: FieldType.Items,
       freeSolo: true,
-      compute: () => "Hello world",
-      name: 'combo',
+      compute: () => ["Hello", "world"],
+      name: 'items',
       columns: '3',
     },
     {
-      type: FieldType.Combo,
+      type: FieldType.Items,
       freeSolo: true,
-      compute: () => "Hello world",
-      name: 'combo',
+      compute: () => ["Hello", "world"],
+      name: 'items',
       columns: '3',
     },
     {
-      type: FieldType.Combo,
+      type: FieldType.Items,
       freeSolo: true,
-      compute: () => "Hello world",
-      name: 'combo',
+      compute: () => ["Hello", "world"],
+      name: 'items',
       columns: '3',
     },
     {
-      type: FieldType.Combo,
+      type: FieldType.Items,
       freeSolo: true,
-      compute: () => "Hello world",
-      name: 'combo',
+      compute: () => ["Hello", "world"],
+      name: 'items',
       columns: '3',
     },
   ];
 
   test("Will match snapshot", async () => {
-    await renderFields(page, fields);
+    await renderFields(page, fields, {
+      data: {
+        complete: "Hello world"
+      }
+    });
     await expect(page).toHaveScreenshot({
       maxDiffPixels: 100,
     });

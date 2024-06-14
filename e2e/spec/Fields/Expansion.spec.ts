@@ -1,11 +1,11 @@
 import { Browser, Page, chromium, expect, test } from "@playwright/test";
 
-import { renderFields } from "../helpers/render-fields";
+import { renderFields } from "../../helpers/render-fields";
 
-import TypedField from "../model/TypedField";
-import FieldType from "../model/FieldType";
+import TypedField from "../../model/TypedField";
+import FieldType from "../../model/FieldType";
 
-test.describe('Unit', () => {
+test.describe('Unit', { tag: "@fields" }, () => {
 
     let browser: Browser;
     let page: Page;
@@ -33,10 +33,11 @@ test.describe('Unit', () => {
     const fields: TypedField[] = [
         {
             type: FieldType.Typography,
-            placeholder: 'Paper testbed',
+            placeholder: 'Expansion testbed',
         },
         {
-            type: FieldType.Paper,
+            type: FieldType.Expansion,
+            expansionOpened: true,
             isVisible: ({ visible }) => visible,
             isDisabled: ({ disabled }) => disabled,
             child: {
@@ -49,30 +50,30 @@ test.describe('Unit', () => {
     ];
 
     test("Will render visible state", async () => {
-        const componentPaper = await renderFields(page, fields, {
+        const componentExpansion = await renderFields(page, fields, {
             data: {
                 visible: true,
             }
         });
-        const component = await componentPaper.getByTestId('child-field');
+        const component = await componentExpansion.getByTestId('child-field');
         const isVisible = await component.isVisible();
         await expect(isVisible).toBeTruthy();
     });
 
     test("Will render hidden state", async () => {
-        const componentPaper = await renderFields(page, fields, {
+        const componentExpansion = await renderFields(page, fields, {
             data: {
                 visible: false,
             }
         });
-        const component = await componentPaper.getByTestId('child-field');
+        const component = await componentExpansion.getByTestId('child-field');
         const isVisible = await component.isVisible();
         await expect(isVisible).toBeFalsy();
     });
 
     test("Will process click", async () => {
         let isClicked = false;
-        const componentPaper = await renderFields(page, fields, {
+        const componentExpansion = await renderFields(page, fields, {
             data: {
                 visible: true,
             },
@@ -82,15 +83,14 @@ test.describe('Unit', () => {
                 }
             },
         });
-        const component = await componentPaper.getByTestId('child-field');
+        const component = await componentExpansion.getByTestId('child-field');
         await component.evaluate((e: HTMLElement) => e.click());
         await expect(isClicked).toBeTruthy();
     });
 
-    
     test("Will skip click if disabled", async () => {
         let isClicked = false;
-        const componentPaper = await renderFields(page, fields, {
+        const componentExpansion = await renderFields(page, fields, {
             data: {
                 visible: true,
                 disabled: true,
@@ -101,7 +101,7 @@ test.describe('Unit', () => {
                 }
             },
         });
-        const component = await componentPaper.getByTestId('child-field');
+        const component = await componentExpansion.getByTestId('child-field');
         await component.evaluate((e: HTMLElement) => e.click());
         await expect(isClicked).toBeFalsy();
     });

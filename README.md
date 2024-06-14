@@ -43,34 +43,38 @@ npm run test
 
 **Fields:**
 
-1. [TypographyField](./e2e/spec/Typography.spec.ts)
-2. [TextField](./e2e/spec/TextField.spec.ts)
-3. [RadioField](./e2e/spec/Radio.spec.ts)
-4. [CheckboxField](./e2e/spec/Checkbox.spec.ts)
-5. [ComboField](./e2e/spec/Combo.spec.ts)
-6. [ItemsField](./e2e/spec/Items.spec.ts)
-7. [TreeField](./e2e/spec/Tree.spec.ts)
-8. [YesNoField](./e2e/spec/YesNo.spec.ts)
-9. [SwitchField](./e2e/spec/Switch.spec.ts)
-10. [ProgressField](./e2e/spec/Progress.spec.ts)
-11. [SliderField](./e2e/spec/Slider.spec.ts)
-12. [ChooseField](./e2e/spec/Choose.spec.ts)
-13. [CompleteField](./e2e/spec/Complete.spec.ts)
-14. [DateField](./e2e/spec/Date.spec.ts)
-15. [TimeField](./e2e/spec/Time.spec.ts)
+1. [TypographyField](./e2e/spec/Fields/Typography.spec.ts)
+2. [TextField](./e2e/spec/Fields/TextField.spec.ts)
+3. [RadioField](./e2e/spec/Fields/Radio.spec.ts)
+4. [CheckboxField](./e2e/spec/Fields/Checkbox.spec.ts)
+5. [ComboField](./e2e/spec/Fields/Combo.spec.ts)
+6. [ItemsField](./e2e/spec/Fields/Items.spec.ts)
+7. [TreeField](./e2e/spec/Fields/Tree.spec.ts)
+8. [YesNoField](./e2e/spec/Fields/YesNo.spec.ts)
+9. [SwitchField](./e2e/spec/Fields/Switch.spec.ts)
+10. [ProgressField](./e2e/spec/Fields/Progress.spec.ts)
+11. [SliderField](./e2e/spec/Fields/Slider.spec.ts)
+12. [ChooseField](./e2e/spec/Fields/Choose.spec.ts)
+13. [CompleteField](./e2e/spec/Fields/Complete.spec.ts)
+14. [DateField](./e2e/spec/Fields/Date.spec.ts)
+15. [TimeField](./e2e/spec/Fields/Time.spec.ts)
 
 **Layouts:**
 
-1. [FragmentLayout](./e2e/spec/Fragment.spec.ts)
-2. [GroupLayout](./e2e/spec/Group.spec.ts)
-3. [PaperLayout](./e2e/spec/Paper.spec.ts)
-4. [OutlineLayout](./e2e/spec/Outline.spec.ts)
-4. [ExpansionLayout](./e2e/spec/Expansion.spec.ts)
+1. [FragmentLayout](./e2e/spec/Fields/Fragment.spec.ts)
+2. [GroupLayout](./e2e/spec/Fields/Group.spec.ts)
+3. [PaperLayout](./e2e/spec/Fields/Paper.spec.ts)
+4. [OutlineLayout](./e2e/spec/Fields/Outline.spec.ts)
+4. [ExpansionLayout](./e2e/spec/Fields/Expansion.spec.ts)
 
 **Actions:**
 
-1. [ButtonField](./e2e/spec/Button.spec.ts)
-2. [IconField](./e2e/spec/Icon.spec.ts)
+1. [ButtonField](./e2e/spec/Fields/Button.spec.ts)
+2. [IconField](./e2e/spec/Fields/Icon.spec.ts)
+
+**Forms**
+
+1. [Form1](./e2e/spec/Forms/Form1.spec.ts)
 
 ## Code Sample
 

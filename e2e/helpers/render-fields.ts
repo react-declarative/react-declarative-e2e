@@ -77,6 +77,7 @@ export const renderFields = async (page: Page, f: Field[], {
             }
             run();
         }, config);
+        await page.exposeFunction("has", (arr, value) => arr?.includes(value) ?? false);
         if (oneBlur) {
             await page.exposeFunction('oneBlur', oneBlur);
         }

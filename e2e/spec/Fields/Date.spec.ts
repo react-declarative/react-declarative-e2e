@@ -1,11 +1,11 @@
 import { Browser, Page, chromium, expect, test } from "@playwright/test";
 
-import { renderFields } from "../helpers/render-fields";
+import { renderFields } from "../../helpers/render-fields";
 
-import TypedField from "../model/TypedField";
-import FieldType from "../model/FieldType";
+import TypedField from "../../model/TypedField";
+import FieldType from "../../model/FieldType";
 
-test.describe('Unit', () => {
+test.describe('Unit', { tag: "@fields" }, () => {
 
   let browser: Browser;
   let page: Page;
@@ -31,11 +31,11 @@ test.describe('Unit', () => {
   test("Will show invalid message", async () => {
     const fields: TypedField[] = [
       {
-        type: FieldType.Time,
-        testId: 'time-field',
+        type: FieldType.Date,
+        testId: 'date-field',
         dirty: true,
         isInvalid: () => "Invalid",
-        name: 'time'
+        name: 'date'
       },
     ];
     const componentGroup = await renderFields(page, fields);
@@ -45,70 +45,70 @@ test.describe('Unit', () => {
   test("Will show disabled state", async () => {
     const fields: TypedField[] = [
       {
-        type: FieldType.Time,
-        testId: 'time-field',
+        type: FieldType.Date,
+        testId: 'date-field',
         dirty: true,
         isDisabled: () => true,
-        name: 'time'
+        name: 'date'
       },
     ];
     const componentGroup = await renderFields(page, fields);
-    const isDisabled = await componentGroup.getByLabel('Time').isDisabled();
+    const isDisabled = await componentGroup.getByLabel('Date').isDisabled();
     await expect(isDisabled).toBeTruthy();
   });
 
   test("Will show readonly state", async () => {
     const fields: TypedField[] = [
       {
-        type: FieldType.Time,
-        testId: 'time-field',
+        type: FieldType.Date,
+        testId: 'date-field',
         dirty: true,
         isReadonly: () => true,
-        name: 'time'
+        name: 'date'
       },
     ];
     const componentGroup = await renderFields(page, fields);
-    const isEditable = await componentGroup.getByLabel('Time').isEditable();
+    const isEditable = await componentGroup.getByLabel('Date').isEditable();
     await expect(isEditable).toBeFalsy();
   });
 
   test("Will read value", async () => {
     const fields: TypedField[] = [
       {
-        type: FieldType.Time,
-        testId: 'time-field',
-        name: 'time'
+        type: FieldType.Date,
+        testId: 'date-field',
+        name: 'date'
       },
     ];
     const componentGroup = await renderFields(page, fields, {
       data: {
-        time: "13:37",
+        date: "01/01/1970",
       },
     });
-    const inputValue = await componentGroup.getByTestId('time-field').getByRole('textbox').inputValue();
-    await expect(inputValue).toContain('13:37');
+    const inputValue = await componentGroup.getByTestId('date-field').getByRole('textbox').inputValue();
+    await expect(inputValue).toContain('01/01/1970');
   });
 
   test("Will compute value", async () => {
     const fields: TypedField[] = [
       {
-        type: FieldType.Time,
-        testId: 'time-field',
-        name: 'time',
-        compute: () => "13:37",
+        type: FieldType.Date,
+        testId: 'date-field',
+        name: 'date',
+        compute: () => "01/01/1970",
       },
     ];
     const componentGroup = await renderFields(page, fields);
-    const inputValue = await componentGroup.getByTestId('time-field').getByRole('textbox').inputValue();
-    await expect(inputValue).toContain('13:37');
+    const inputValue = await componentGroup.getByTestId('date-field').getByRole('textbox').inputValue();
+    await expect(inputValue).toContain('01/01/1970');
   });
 
   test("Will type value", async () => {
     const fields: TypedField[] = [
       {
-        type: FieldType.Time,
-        testId: 'time-field',
-        name: 'time',
+        type: FieldType.Date,
+        testId: 'date-field',
+        name: 'date',
       },
     ];
     let dataRef;
@@ -117,17 +117,17 @@ test.describe('Unit', () => {
         dataRef = data;
       }
     });
-    const timeField = await componentGroup.getByTestId('time-field');
-    await timeField.click();
-    await page.keyboard.insertText("1337");
-    await timeField.blur();
+    const dateField = await componentGroup.getByTestId('date-field');
+    await dateField.click();
+    await page.keyboard.insertText("01011970");
+    await dateField.blur();
     await page.waitForTimeout(1000);
-    await expect(dataRef.time).toContain('13:37');
+    await expect(dataRef.date).toContain('01/01/1970');
   });
 
 });
 
-test.describe('Integration', () => {
+test.describe('Integration', { tag: "@fields" }, () => {
 
   let browser: Browser;
   let page: Page;
@@ -152,51 +152,51 @@ test.describe('Integration', () => {
 
   const fields: TypedField[] = [
     {
-      type: FieldType.Time,
-      compute: () => "13:37",
-      name: 'time',
+      type: FieldType.Date,
+      compute: () => "01/01/1970",
+      name: 'date',
       columns: '3',
     },
     {
-      type: FieldType.Time,
-      compute: () => "13:37",
-      name: 'time',
+      type: FieldType.Date,
+      compute: () => "01/01/1970",
+      name: 'date',
       columns: '3',
     },
     {
-      type: FieldType.Time,
-      compute: () => "13:37",
-      name: 'time',
+      type: FieldType.Date,
+      compute: () => "01/01/1970",
+      name: 'date',
       columns: '3',
     },
     {
-      type: FieldType.Time,
-      compute: () => "13:37",
-      name: 'time',
+      type: FieldType.Date,
+      compute: () => "01/01/1970",
+      name: 'date',
       columns: '3',
     },
     {
-      type: FieldType.Time,
-      compute: () => "13:37",
-      name: 'time',
+      type: FieldType.Date,
+      compute: () => "01/01/1970",
+      name: 'date',
       columns: '3',
     },
     {
-      type: FieldType.Time,
-      compute: () => "13:37",
-      name: 'time',
+      type: FieldType.Date,
+      compute: () => "01/01/1970",
+      name: 'date',
       columns: '3',
     },
     {
-      type: FieldType.Time,
-      compute: () => "13:37",
-      name: 'time',
+      type: FieldType.Date,
+      compute: () => "01/01/1970",
+      name: 'date',
       columns: '3',
     },
     {
-      type: FieldType.Time,
-      compute: () => "13:37",
-      name: 'time',
+      type: FieldType.Date,
+      compute: () => "01/01/1970",
+      name: 'date',
       columns: '3',
     },
   ];

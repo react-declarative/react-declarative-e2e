@@ -1,14 +1,14 @@
 import { Browser, Page, chromium, expect, test } from "@playwright/test";
 
-import { renderFields } from "../helpers/render-fields";
-import { writeText } from "../helpers/write-text";
+import { renderFields } from "../../helpers/render-fields";
+import { writeText } from "../../helpers/write-text";
 
-import TypedField from "../model/TypedField";
-import FieldType from "../model/FieldType";
+import TypedField from "../../model/TypedField";
+import FieldType from "../../model/FieldType";
 
 declare function isNaN(number: any): boolean;
 
-test.describe('Unit', () => {
+test.describe('Unit', { tag: "@fields" }, () => {
 
   let browser: Browser;
   let page: Page;
@@ -396,7 +396,7 @@ test.describe('Unit', () => {
 
 });
 
-test.describe('Integration', () => {
+test.describe('Integration', { tag: "@fields" }, () => {
 
   let browser: Browser;
   let page: Page;
