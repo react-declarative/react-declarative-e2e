@@ -1040,6 +1040,23 @@ test.describe('Form', { tag: "@forms" }, () => {
     await expect(page.getByText('Price information (Daily Rental)')).toBeVisible();
   });
 
+  test("Will render all rent variants price information", async () => {
+    await renderFields(page, fields);
+
+    await page.getByLabel("Transaction type").first().click();
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("Enter");
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("Enter");
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("Enter");
+    await page.keyboard.press("Escape");
+
+    await expect(page.getByText('Price information (Daily Rental)')).toBeVisible();
+    await expect(page.getByText('Price information (Rent)')).toBeVisible();
+    await expect(page.getByText('Price information (Purchase)')).toBeVisible();
+  });
+
   test("Will render commercial office type information", async () => {
     await renderFields(page, fields);
 
@@ -1071,6 +1088,30 @@ test.describe('Form', { tag: "@forms" }, () => {
     await page.keyboard.press("Escape");
 
     await expect(page.getByText('Information about the house (Residential premises)')).toBeVisible();
+  });
+
+  test("Will render all house type information", async () => {
+    await renderFields(page, fields);
+
+    await page.getByLabel("Property type").first().click();
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("Enter");
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("Enter");
+    await page.keyboard.press("Escape");
+
+    await page.getByLabel("Commercial building type").first().click();
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("Enter");
+    await page.keyboard.press("Escape");
+
+    await page.getByLabel("Residential building type").first().click();
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("Enter");
+    await page.keyboard.press("Escape");
+
+    await expect(page.getByText('Information about the house (Residential premises)')).toBeVisible();
+    await expect(page.getByText('Information about the office (Commercial premises)')).toBeVisible();
   });
 
 });
