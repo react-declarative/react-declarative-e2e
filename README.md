@@ -78,7 +78,7 @@ npm run test
 
 ## Test coverage for business logic
 
-When you using classic jest + enzyme testbed for React SPA you are writing unit tests only. It is possible to mock API but [you don't coverage the API itself](https://github.com/react-declarative/react-declarative/blob/master/docs/other/code-sideeffect.md). It's Ok if you want to loot your time in Jira but pointless for busines. If this is a button then It is clickable. Business need to document their requirements in the code, the only way to solve that problem is to keep validation rules in the UI schema. So check [the Form1 example](./e2e/spec/Forms/Form1.spec.ts)
+When you using classic jest + enzyme testbed for React SPA you are writing unit tests only. It is possible to mock API but [you don't coverage the API itself](https://github.com/react-declarative/react-declarative/blob/master/docs/other/code-sideeffect.md). It's Ok if you want to loot your time in Jira but pointless for busines. If this is a button then It is clickable. Business need to document their requirements in the code, the only way to solve that problem is to keep validation and visibility rules in the UI schema. So check [the Form1 example](./e2e/spec/Forms/Form1.spec.ts)
 
 ## Code Sample
 
