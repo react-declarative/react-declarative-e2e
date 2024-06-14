@@ -78,7 +78,7 @@ npm run test
 
 ## Test coverage for business logic
 
-When you using classic jest + enzyme testbed for React SPA you writing unit tests only. It's Ok if you want to loot your time in Jira but pointless for businnes. If this is a button then It is clickable. Business need to document their requirements in the code, so check [the Form1 example](./e2e/spec/Forms/Form1.spec.ts)
+When you using classic jest + enzyme testbed for React SPA you are writing unit tests only. It's Ok if you want to loot your time in Jira but pointless for businnes. If this is a button then It is clickable. Business need to document their requirements in the code, so check [the Form1 example](./e2e/spec/Forms/Form1.spec.ts)
 
 ## Code Sample
 
