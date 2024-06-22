@@ -75,6 +75,7 @@ npm run test
 **Forms**
 
 1. [Form1](./e2e/spec/Forms/Form1.spec.ts)
+2. [Form2](./e2e/spec/Forms/Form2.spec.ts)
 
 ## Test coverage for business logic
 
