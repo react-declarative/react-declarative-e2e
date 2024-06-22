@@ -149,6 +149,31 @@ test.describe('Unit', { tag: "@fields" }, () => {
     await expect(inputValue).toEqual('123123');
   });
 
+  
+  test("Will keep template order", async () => {
+    const fields: TypedField[] = [
+      {
+        type: FieldType.Text,
+        testId: 'text-field',
+        inputFormatterSymbol: '0',
+        inputFormatterAllowed: (char) => !isNaN(char),
+        inputFormatterTemplate: "#00 00 00",
+        name: 'date',
+      },
+    ];
+    const componentGroup = await renderFields(page, fields);
+    await writeText(page, 'text-field', "123456");
+    const input = await page.getByTestId('text-field');
+    await input.click();
+    await page.keyboard.press("ArrowLeft");
+    await page.keyboard.press("ArrowLeft");
+    await page.keyboard.press("ArrowLeft");
+    await page.keyboard.press("ArrowLeft");
+    await page.keyboard.type("789")
+    const textField = await componentGroup.getByTestId('text-field');
+    const inputValue = await textField.getByRole('textbox').inputValue();
+    await expect(inputValue).toEqual('#12 37 89');
+  });
 
   test("Will compute value", async () => {
     const fields: TypedField[] = [
