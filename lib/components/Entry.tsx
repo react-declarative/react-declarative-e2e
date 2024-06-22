@@ -126,6 +126,12 @@ export const Entry = () => {
         window.oneClick && window.oneClick(...params);
     }, []);
 
+    const handleInvalid = useMemo((): IOneProps['invalidity'] => (...args) => {
+        const params = args.map((value) => typeof value === "function" ? null : value);
+        window.oneInvalid && window.oneInvalid(...params);
+    }, []);
+
+
     if (!config) {
         return <LoaderView sx={{ height: '100%', width: '100%' }} />
     }
@@ -141,6 +147,7 @@ export const Entry = () => {
             onFocus={handleFocus}
             onBlur={handleBlur}
             onChange={handleChange}
+            onInvalid={handleInvalid}
         />
     );
 };
@@ -152,6 +159,7 @@ declare global {
         oneBlur?: (...args: unknown[]) => void;
         oneChange?: (...args: unknown[]) => void;
         oneClick?: (...args: unknown[]) => void;
+        oneInvalid?: (...args: unknown[]) => void;
         launcherReady?: (msg: string) => void;
     }
 }

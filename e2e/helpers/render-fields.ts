@@ -30,6 +30,7 @@ interface IConfig extends Omit<ILaunchConfig, keyof {
     focus: IOneProps['focus'];
     blur: IOneProps['blur'];
     change: IOneProps['change'];
+    invalid: IOneProps['invalidity'];
 }
 
 declare global {
@@ -45,6 +46,7 @@ export const renderFields = async (page: Page, f: Field[], {
     change: oneChange = (data, initial) => console.log({ type: 'change', data, initial }),
     focus: oneFocus = (name, data) => console.log({ type: 'focus', name, data }),
     click: oneClick = (name, data) => console.log({ type: 'click', name, data }),
+    invalid: oneInvalid = (name, msg) => console.log({ type: 'invalid', name, msg }),
     data = {},
     payload = {},
 }: Partial<IConfig> = {}) => {
@@ -89,6 +91,9 @@ export const renderFields = async (page: Page, f: Field[], {
         }
         if (oneClick) {
             await page.exposeFunction('oneClick', oneClick);
+        }
+        if (oneInvalid) {
+            await page.exposeFunction('oneInvalid', oneInvalid);
         }
         const component = await page.getByTestId(READY_CLASS);
         await component.waitFor({ state: "visible" });

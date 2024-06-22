@@ -1,5 +1,6 @@
 import { Browser, Page, chromium, expect, test } from "@playwright/test";
 
+import { waitForCondition } from "../../helpers/wait-for-condition";
 import { renderFields } from "../../helpers/render-fields";
 import { writeText } from "../../helpers/write-text";
 
@@ -232,6 +233,45 @@ test.describe('Unit', { tag: "@fields" }, () => {
     const componentGroup = await renderFields(page, fields);
     await writeText(page, 'text-field', "Hello world");
     await expect(componentGroup).toContainText('Value not allowed');
+  });
+
+  test("Will emit callback on invalid", async () => {
+    const fields: TypedField[] = [
+      {
+        name: 'email',
+        type: FieldType.Text,
+        testId: 'text-field',
+        outlined: true,
+        isInvalid: ({ email }) => {
+          const expr = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+          if (!expr.test(email)) {
+            return 'Invalid email address provided';
+          }
+          else {
+            return null;
+          }
+        },
+        title: 'Email',
+        description: 'tripolskypetr@gmail.com',
+      },
+    ];
+    let dataRef;
+    const componentGroup = await renderFields(page, fields, {
+      change: (data) => {
+        dataRef = data;
+      },
+      invalid: () => {
+        dataRef = null;
+      },
+    });
+    await writeText(page, 'text-field', "tripolskypetr@gmail.com");
+    await waitForCondition(page, () => {
+      return dataRef !== undefined;
+    });
+    await expect(dataRef).toBeTruthy();
+    await writeText(page, 'text-field', "tripolskypetrgmail.com");
+    await expect(componentGroup).toContainText('Invalid email address provided');
+    await expect(dataRef).toEqual(null);
   });
 
   test("Will hide by condition", async () => {
