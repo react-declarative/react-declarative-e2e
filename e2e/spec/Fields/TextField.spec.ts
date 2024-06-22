@@ -3,6 +3,7 @@ import { Browser, Page, chromium, expect, test } from "@playwright/test";
 import { waitForCondition } from "../../helpers/wait-for-condition";
 import { renderFields } from "../../helpers/render-fields";
 import { writeText } from "../../helpers/write-text";
+import { moveMouse } from "../../helpers/move-mouse";
 
 import TypedField from "../../model/TypedField";
 import FieldType from "../../model/FieldType";
@@ -233,6 +234,34 @@ test.describe('Unit', { tag: "@fields" }, () => {
     const componentGroup = await renderFields(page, fields);
     await writeText(page, 'text-field', "Hello world");
     await expect(componentGroup).toContainText('Value not allowed');
+  });
+
+  test("Will process fast input", async () => {
+    const fields: TypedField[] = [
+      {
+        type: FieldType.Text,
+        testId: 'text1-field',
+        name: "text",
+      },
+      {
+        type: FieldType.Text,
+        testId: 'text2-field',
+        name: "text",
+      },
+    ];
+    let dataRef;
+    await renderFields(page, fields, {
+      change: (data) => {
+        dataRef = data;
+      },
+    });
+    await page.getByTestId('text1-field').click();
+    await page.keyboard.type("abc");
+    await moveMouse(page);
+    await page.getByTestId('text2-field').click();
+    await page.keyboard.type("def");
+    await moveMouse(page);
+    await expect(dataRef.text).toEqual("abcdef");
   });
 
   test("Will emit callback on invalid", async () => {
