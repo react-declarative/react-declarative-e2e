@@ -264,6 +264,8 @@ test.describe('Unit', { tag: "@fields" }, () => {
         dataRef = null;
       },
     });
+    await componentGroup.getByTestId('text-field').click();
+    await expect(componentGroup).toContainText('Invalid email address provided');
     await writeText(page, 'text-field', "tripolskypetr@gmail.com");
     await waitForCondition(page, () => {
       return dataRef !== undefined;
