@@ -83,7 +83,7 @@ When you using classic jest + enzyme testbed for React SPA you are writing unit 
 
 The important part is the reaction of app after data mutation when button just clicked. Business need to document their requirements in the code, so the only way to solve that problem is to keep the field validation and button visibility rules in the UI schema.
 
-Check [the Form1 example](./e2e/spec/Forms/Form1.spec.ts), this is a real integrational test, not the mocked one which a-priory coverage the problem partially 
+Check [the Form1 example](./e2e/spec/Forms/Form1.spec.ts), this is a real integrational test, not the mocked one which a-priory coverage the problem partially. P.S. The [Form2 example](./e2e/spec/Forms/Form2.spec.ts) coverage the mobile-first approach too
 
 ## Code Sample
 
